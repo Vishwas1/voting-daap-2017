@@ -4,7 +4,6 @@ var config = require('../../config'),
 	jwt = require('jsonwebtoken');
 
 
-
 var services = {
 	getToken : function(user){
 		return jwt.sign(user, config.secret , {
