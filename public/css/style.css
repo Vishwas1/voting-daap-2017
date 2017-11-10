@@ -8587,3 +8587,12 @@ body.md-skin {
 .indicator-info {
     background: #a3a5a7;
 }
+
+.powered-by-image{
+  position: relative;
+    width:  40px;
+    height: 40px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
+}
