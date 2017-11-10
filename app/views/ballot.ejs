@@ -70,16 +70,16 @@
                                             <h5>Create form</h5>
                                         </div>
                                         <div class="ibox-content">
-                                            <form method="POST" class="form-horizontal">
+                                            <form method="POST" name="BallotForm" class="form-horizontal">
                                                 <div class="form-group">
                                                     <label class="col-sm-6 ">
-                                                        <input type="text" class="form-control" autocomplete="off" placeholder="Election Name">
+                                                        <input type="text" class="form-control ballot-name" name="ballot_name" autocomplete="off" placeholder="Election Name">
                                                     </label>
                                                     <label class="col-sm-4 ">
-                                                        <input type="text" class="form-control date" autocomplete="off" placeholder="Start Date" >
+                                                        <input type="text" class="form-control date start-date" name="start_date" autocomplete="off" placeholder="Start Date" >
                                                     </label>
                                                     <div class="col-sm-2">
-                                                        <button class="btn btn-primary" type="button">Create Ballot</button>
+                                                        <button class="btn btn-primary createBallot" type="button">Create Ballot</button>
                                                     </div>
                                                 </div>
                                                 
@@ -215,6 +215,23 @@ if ($('#' + parentId + '  tr').length > 1) {
 var $tr = $(this).closest('tr');
 $tr.remove();
 }
+});
+$(document).on('click', '.createBallot', function(e) {
+    e.preventDefault();
+
+    var data = {
+        ballot_name : $('.ballot-name').val(),
+        start_date : $('.start-date').val(),
+    };
+
+    $.ajax({
+        method: "POST",
+        url: "../api/create-ballot",
+        data: data,
+        success: function(data) {
+          
+        }
+    });
 });
 </script>
 </body>
