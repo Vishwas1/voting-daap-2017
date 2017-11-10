@@ -1,6 +1,7 @@
 var config = require('../../config'),
 	User   = require('../api/model'),
 	dbConn = require('../../dbConn'),
+	web3 = require('../../server'),
 	jwt = require('jsonwebtoken');
 
 
@@ -65,7 +66,13 @@ var services = {
 		} else {
 		  res.sendStatus(403);
 		}	
-	}
+	},
+	
+	newContract : function(contractName, endTime, creatorArr){
+		if(web3 !== 'undefined'){
+			
+		}
+	},
 }
 
 
