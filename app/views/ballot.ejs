@@ -35,9 +35,9 @@
                                 <li class="active">
                                     <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Forms</span><span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
-                                        <li><a href="">View List</a></li>
-                                        <li class="active"><a href="ballot.html">Create Ballot</a></li>
-                                        <li><a href="view-votes.html">View Votes</a></li>
+                                        <li><a href="/view-list">View List</a></li>
+                                        <li class="active"><a href="/ballot">Create Ballot</a></li>
+                                        <li  ><a href="/view-votes">View Votes</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -70,10 +70,16 @@
                                         </div>
                                         <div class="ibox-content">
                                             <form method="POST" class="form-horizontal">
-                                                
-                                                
-                                                <div class="form-group"><label class="col-sm-10 "><input type="text" class="form-control" autocomplete="off" ></label>
-                                                <div class="col-sm-2">  <button class="btn btn-primary" type="submit">Sign in</button></div>
+                                             <div class="form-group">
+                                                    <label class="col-sm-6 ">
+                                                        <input type="text" class="form-control" autocomplete="off" placeholder="Election Name">        
+                                                    </label>
+                                                    <label class="col-sm-4 ">
+                                                        <input type="text" class="form-control" autocomplete="off" placeholder="Start Time" >        
+                                                    </label>
+                                                <div class="col-sm-2">
+                                                    <button class="btn btn-primary" type="button">Create Ballot</button>
+                                                </div>
                                             </div>
                                             
                                         </form>

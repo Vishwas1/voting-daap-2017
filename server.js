@@ -59,6 +59,8 @@ app.get('/',function(req,res){res.render('login',{title:'E-Voting | Login'});});
 // app.get('/login',function(req,res){res.render('login',{title:'Login Page', nav : nav, appName:  config.appName });});
 app.get('/register',function(req,res){res.render('register',{title:'E-Voting | Register'});});
 app.get('/ballot',function(req,res){res.render('ballot',{title:'E-Voting | Create Ballot'});});
+app.get('/view-list',function(req,res){res.render('view_list',{title:'E-Voting | View List'});});
+app.get('/view-votes',function(req,res){res.render('view-votes',{title:'E-Voting | View List'});});
 app.use('/api', require('./app/api'));
 
 
