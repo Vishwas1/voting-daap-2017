@@ -1,10 +1,4 @@
-# LocationTracker
+# E-voting 
 
-Location tracker is a simple app built on techs like HTML5, css, Node Js, Json Web Token, Google Place API etc.
-Authentication using JWT.
-
-
-Please click the link below to see the app deployed on Heroku.
-http://nodelocationtracker.herokuapp.com/
-
-
+Will let the user to voting from any where. and the system will be highly secure and can be sclable as well. 
+We are using Blockchain as its backend.
