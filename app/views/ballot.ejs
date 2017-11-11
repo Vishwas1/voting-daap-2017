@@ -2,16 +2,29 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>E-Voting | Create Ballot</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-        <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
-        <link href="css/animate.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
-        <link href="css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-        <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-        <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+            <meta content="width=device-width, initial-scale=1.0" name="viewport">
+                <title>
+                    E-Voting | Create Ballot
+                </title>
+                <link href="css/bootstrap.min.css" rel="stylesheet">
+                    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+                        <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+                            <link href="css/animate.css" rel="stylesheet">
+                                <link href="css/style.css" rel="stylesheet">
+                                    <link href="css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+                                        <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+                                            <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+                                            </link>
+                                        </link>
+                                    </link>
+                                </link>
+                            </link>
+                        </link>
+                    </link>
+                </link>
+            </meta>
+        </meta>
+        <link rel="stylesheet" type="text/css" href="css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
     </head>
     <body>
         <div id="wrapper">
@@ -21,124 +34,198 @@
                         <li class="nav-header">
                             <div class="dropdown profile-element">
                                 <span>
-                                    <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+                                    <img alt="image" class="img-circle" src="img/profile_small.jpg"/>
                                 </span>
-                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                    <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
-                                        </span> <span class="text-muted text-xs block">Admin </span> </span> </a>
-                                        
-                                    </div>
-                                    <div class="logo-element">
-                                        IN+
-                                    </div>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <span class="clear">
+                                        <span class="block m-t-xs">
+                                            <strong class="font-bold">
+                                                David Williams
+                                            </strong>
+                                        </span>
+                                        <span class="text-muted text-xs block">
+                                            Admin
+                                        </span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="logo-element">
+                                IN+
+                            </div>
+                        </li>
+                        <li class="active">
+                            <a href="#">
+                                <i class="fa fa-edit">
+                                </i>
+                                <span class="nav-label">
+                                    Menu
+                                </span>
+                                <span class="fa arrow">
+                                </span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/view-list">
+                                        View List
+                                    </a>
                                 </li>
-                                
                                 <li class="active">
-                                    <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Forms</span><span class="fa arrow"></span></a>
-                                    <ul class="nav nav-second-level">
-                                        <li><a href="/view-list">View List</a></li>
-                                        <li class="active"><a href="/ballot">Create Ballot</a></li>
-                                        <li  ><a href="/view-votes">View Votes</a></li>
-                                    </ul>
+                                    <a href="/ballot">
+                                        Create Ballot
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/view-votes">
+                                        View Votes
+                                    </a>
                                 </li>
                             </ul>
-                        </div>
-                    </nav>
-                    <div id="page-wrapper" class="gray-bg">
-                        <div class="row border-bottom">
-                        </div>
-                        <div class="row wrapper border-bottom white-bg page-heading">
-                            <div class="col-lg-10">
-                                <h2>Create Ballot</h2>
-                                <ol class="breadcrumb">
-                                    <li>
-                                        <a href="index.html">Home</a>
-                                    </li>
-                                    <li class="active">
-                                        <strong>Create Ballot</strong>
-                                    </li>
-                                </ol>
-                            </div>
-                            <div class="col-lg-2">
-                            </div>
-                        </div>
-                        <div class="wrapper wrapper-content animated fadeInRight">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="ibox float-e-margins">
-                                        <div class="ibox-title">
-                                            <h5>Create form</h5>
-                                        </div>
-                                        <div class="ibox-content">
-                                            <form method="POST" name="BallotForm" class="form-horizontal">
-                                                <div class="form-group">
-                                                    <label class="col-sm-6 ">
-                                                        <input type="text" class="form-control ballot-name" name="ballot_name" autocomplete="off" placeholder="Election Name">
-                                                    </label>
-                                                    <label class="col-sm-4 ">
-                                                        <input type="text" class="form-control date start-date" name="start_date" autocomplete="off" placeholder="Start Date" >
-                                                    </label>
-                                                    <div class="col-sm-2">
-                                                        <button class="btn btn-primary createBallot" type="button">Create Ballot</button>
-                                                    </div>
-                                                </div>
-                                                
-                                            </form>
-                                            <div class="hr-line-dashed"></div>
-                                            <form method="POST" class="form-horizontal">
-                                                
-                                                
-                                                <div class="form-group"><label class="col-sm-10 "><input type="text" class="form-control" autocomplete="off" ></label>
-                                                <div class="col-sm-2"> <a data-toggle="modal" class="btn btn-primary" href="#modal-form">+</a> </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="gray-bg" id="page-wrapper">
+                <div class="row border-bottom">
+                </div>
+                <div class="row wrapper border-bottom white-bg page-heading">
+                    <div class="col-lg-10">
+                        <h2>
+                            Create Ballot
+                        </h2>
+                        <ol class="breadcrumb">
+                            <li>
+                                <a href="index.html">
+                                    Home
+                                </a>
+                            </li>
+                            <li class="active">
+                                <strong>
+                                    Create Ballot
+                                </strong>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-lg-2">
+                    </div>
+                </div>
+                <div class="wrapper wrapper-content animated fadeInRight">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>
+                                        Create form
+                                    </h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <form class="form-horizontal" method="POST" name="BallotForm">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 ">
+                                                <input autocomplete="off" class="form-control ballot-name" name="ballot_name" placeholder="Election Name" type="text">
+                                                </input>
+                                            </label>
+                                            <label class="col-sm-3 ">
+                                                <input autocomplete="off" class="form-control date start-date" name="start_date" placeholder="Start Date" type="text">
+                                                </input>
+                                            </label>
+                                            <label class="col-sm-3 ">
+                                                 <input type="text" name="" placeholder="Nominee Name" id="" class="tagsinput-typeahead form-control">
+                                            </label>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-primary createBallot" type="button">
+                                                    Create Ballot
+                                                </button>
                                             </div>
-                                            
-                                        </form>
-                                        
+                                        </div>
+                                    </form>
+                                    <div class="hr-line-dashed">
                                     </div>
+                                    <form class="form-horizontal" method="POST">
+                                        <div class="form-group">
+                                            <label class="col-sm-10 ">
+                                                <input autocomplete="off" class="form-control" type="text"/>
+                                            </label>
+                                            <div class="col-sm-2">
+                                                <a class="btn btn-primary" data-toggle="modal" href="#modal-form">
+                                                    +
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
-                    <div class="footer">
-                        
-                        <div>
-                            <strong>Copyright</strong>&copy; 2017
-                        </div>
+                </div>
+                <div class="footer">
+                    <div>
+                        <strong>
+                            Copyright
+                        </strong>
+                        © 2017
                     </div>
-                    <div class="modal fade" id="modal-form" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Ballot</h4>
-                                </div>
-                                
-                                <form method="POST" class="form-horizontal">
-                                    <div class="modal-body">
-                                        
-                                        <div class="form-group"><label class="col-sm-2 control-label">Start Time</label>
-                                        <div class="col-sm-10"><input type="text" class="form-control" autocomplete="off" ></div>
-                                    </div>
-                                    <div class="form-group"><label class="col-sm-2 control-label">End Time</label>
-                                    <div class="col-sm-10"><input type="text" class="form-control" autocomplete="off" ></div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">File Upload</label>
-                                <div class="col-sm-10"><div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                    <div class="form-control" data-trigger="fileinput">
-                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
-                                        <span class="fileinput-filename"></span>
-                                    </div>
-                                    <span class="input-group-addon btn btn-default btn-file">
-                                        <span class="fileinput-new">Select file</span>
-                                        <span class="fileinput-exists">Change</span>
-                                        <input type="file" name="..."/>
+                </div>
+                <div aria-labelledby="myModalLabel" class="modal fade" id="modal-form" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                                    <span aria-hidden="true">
+                                        ×
                                     </span>
-                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                </div> </div>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Ballot
+                                </h4>
                             </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group"><label class="col-sm-2 control-label">Party Nominee</label>
+                            <form class="form-horizontal" method="POST">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            Start Time
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input autocomplete="off" class="form-control" type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            End Time
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <input autocomplete="off" class="form-control" type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">
+                                            File Upload
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                <div class="form-control" data-trigger="fileinput">
+                                                    <i class="glyphicon glyphicon-file fileinput-exists">
+                                                    </i>
+                                                    <span class="fileinput-filename">
+                                                    </span>
+                                                </div>
+                                                <span class="input-group-addon btn btn-default btn-file">
+                                                    <span class="fileinput-new">
+                                                        Select file
+                                                    </span>
+                                                    <span class="fileinput-exists">
+                                                        Change
+                                                    </span>
+                                                    <input name="..." type="file"/>
+                                                </span>
+                                                <a class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput" href="#">
+                                                    Remove
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed">
+                                    </div>
+                                    <!-- <div class="form-group"><label class="col-sm-2 control-label">Party Nominee</label>
                             <div class="col-sm-10">
                                 <table class="table" id="Nominee">
                                     <tr>
@@ -152,34 +239,50 @@
                                     </tr>
                                 </table>
                             </div>
+                        </div> -->
+                                    <div class="clearfix">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-default" data-dismiss="modal" type="button">
+                                        Close
+                                    </button>
+                                    <button class="btn btn-primary" id="save_changes" type="submit">
+                                        Save
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                        
-                        <div class="clearfix"></div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="save_changes">Save</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-</div>
-<!-- Mainly scripts -->
-<script src="js/jquery-3.1.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<!-- Custom and plugin javascript -->
-<script src="js/inspinia.js"></script>
-<script src="js/plugins/pace/pace.min.js"></script>
-<script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="js/plugins/iCheck/icheck.min.js"></script>
-<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
-<script>
-$(document).ready(function () {
+        <!-- Mainly scripts -->
+        <script src="js/jquery-3.1.1.min.js">
+        </script>
+        <script src="js/bootstrap.min.js">
+        </script>
+        <script src="js/plugins/metisMenu/jquery.metisMenu.js">
+        </script>
+        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js">
+        </script>
+        <!-- Custom and plugin javascript -->
+        <script src="js/inspinia.js">
+        </script>
+        <script src="js/plugins/pace/pace.min.js">
+        </script>
+        <script src="js/plugins/jasny/jasny-bootstrap.min.js">
+        </script>
+        <!-- iCheck -->
+        <script src="js/plugins/iCheck/icheck.min.js">
+        </script>
+        <script src="js/plugins/datapicker/bootstrap-datepicker.js">
+        </script>
+        <script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js">
+        </script>
+        <script>
+            $(document).ready(function () {
+    $('.tagsinput-typeahead').tagsinput({ });
     $('input.date').datepicker({
         format: "dd/mm/yyyy",
         autoclose: true
@@ -233,6 +336,6 @@ $(document).on('click', '.createBallot', function(e) {
         }
     });
 });
-</script>
-</body>
+        </script>
+    </body>
 </html>

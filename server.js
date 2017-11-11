@@ -23,7 +23,7 @@ dbConn.connection().then(function(res){
 });
 
 //connecting to ethereum
-global.web3 =  web3Conn.web3Meth();
+// global.web3 =  web3Conn.web3Meth();
 
 
 //setting secret variable 
@@ -55,6 +55,6 @@ app.use('/api', require('./app/api'));
 
 //listen and start the server
 app.listen(port);
-console.log('Server is up and running at port:'+port);
-console.log('web3 :'+ web3.eth.accounts[0]);
+// console.log('Server is up and running at port:'+port);
+// console.log('web3 :'+ web3.eth.accounts[0]);
 

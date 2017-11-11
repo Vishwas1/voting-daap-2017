@@ -8587,3 +8587,8 @@ body.md-skin {
 .indicator-info {
     background: #a3a5a7;
 }
+
+.bootstrap-tagsinput {
+    width: 100% !important;
+    border-radius: 1px !important;
+}
