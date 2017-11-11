@@ -1,9 +1,9 @@
 var express = require('express'),
 	router = express.Router(),
-	usrController = require('./userController'),
-	locController = require('./locationController'),
+	usrController = require('./controllers/userController'),
+	locController = require('./controllers/locationController'),
 	common = require('../common/common'),
-	ballotCtrl = require('./ballotController');
+	ballotCtrl = require('./controllers/ballotController');
 
 
 router.post('/create',usrController.create); //routes for creating a user

@@ -1,41 +1,15 @@
 var express = require('express'),
  app = express(),
- config = require('./config'),
+ dbConn = require('./conns/dbConn'),
+ config = require('./configs/config'),
  port = config.port,
  bodyparser = require('body-parser'),
  morgan = require('morgan'),
  mongoose =require('mongoose'),
  mongoClient = require('mongodb').MongoClient,
  jwt = require('jsonwebtoken'),
- dbConn = require('./dbConn'),
- Web3 = require('web3');
-
-
- // Setting up connection with ethereum 
- if (typeof web3 !== 'undefined') {
-	
-	var web3 = new Web3(web3.currentProvider);
-	console.log("web3 is connected throug currentProvider.")
-
-  } else {
-	var web3 = new Web3(new Web3.providers.HttpProvider(config.ethEndpoint));
-	console.log("web3 is configured at endpoint = " + config.ethEndpoint);
-	//console.log(web3);
-  }
-
-
-//Navigation
-
-// var nav = [	{
-// 				Link : '/login',
-// 				Text : 'Login'
-// 			},
-// 			{
-// 				Link : '/signup',
-// 				Text : 'Signup'
-// 		 	}
-// 		 ];
-
+ web3Conn = require('./conns/web3conn');
+ 
 //connecting to db
 mongoose.Promise = require('bluebird');
 console.log('server : Before calling  DbConnection method');
@@ -47,6 +21,9 @@ dbConn.connection().then(function(res){
 	console.log('server :Error Connected to Db res ='+err);
 	global.dbConnection = false;
 });
+
+//connecting to ethereum
+global.web3 =  web3Conn.web3Meth();
 
 
 //setting secret variable 
@@ -79,5 +56,5 @@ app.use('/api', require('./app/api'));
 //listen and start the server
 app.listen(port);
 console.log('Server is up and running at port:'+port);
+console.log('web3 :'+ web3.eth.accounts[0]);
 
-module.exports = web3;
