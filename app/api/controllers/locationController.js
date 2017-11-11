@@ -1,8 +1,9 @@
-var config = require('../../config'),
-	Location   = require('./locModel'),
-	dbConn = require('../../dbConn'),
+
+var config = require('../../../configs/config'),
+	User   = require('../locModel'),
+	dbConn = require('../../../conns/dbConn'),
 	jwt = require('jsonwebtoken'),
-	services = require('../common/common');
+	services = require('../../common/common');
 
 	
 var locationController = {

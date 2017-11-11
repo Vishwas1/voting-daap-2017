@@ -1,8 +1,9 @@
-var config = require('../../config'),
+var config = require('../../configs/config'),
+	ethconfig = require('../../configs/ethConfig'),
 	User   = require('../api/model'),
-	dbConn = require('../../dbConn'),
-	web3 = require('../../server'),
+	dbConn = require('../../conns/dbConn'),
 	jwt = require('jsonwebtoken');
+
 
 
 var services = {
@@ -53,7 +54,7 @@ var services = {
 			    else
 			    	reject(result);
 				});
-			});
+		});
 	},
 
 	ensureToken : function(req,res,next){
@@ -68,11 +69,34 @@ var services = {
 		}	
 	},
 	
-	newContract : function(contractName, endTime, creatorArr){
-		if(web3 !== 'undefined'){
-			
-		}
+	newContract : function(_contractName, _endTime, creatorArr){
+		return new Promise(function(resolve,reject){
+			console.log("Inside newContract method");
+			if(global.web3 !== 'undefined'){
+				console.log("web3 is not undefined, web3.eth.accounts[0] = "+ global.web3.eth.accounts[0]);
+				var browser_ballot_sol_ballotContract = global.web3.eth.contract(ethconfig.abi);
+				console.log("After loading the abi, After creating ballot object");
+				var browser_ballot_sol_ballot = browser_ballot_sol_ballotContract.new(
+					_contractName,
+					_endTime,
+				   {
+					 from: global.web3.eth.accounts[0], 
+					 data: ethconfig.byteCode, 
+					 gas: ethconfig.gas
+				   }, function (e, contract){
+					if(e){
+						reject(e);
+					}else{
+						if (typeof contract.address !== 'undefined') {
+							console.log('Contract mined! address: ' + contract.address + ' transactionHash: ' + contract.transactionHash);
+							resolve(contract.address);
+					   }
+					}
+				});
+			}
+		});
 	},
+	
 }
 
 

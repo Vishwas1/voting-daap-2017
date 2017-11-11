@@ -1,8 +1,9 @@
-var config = require('../../config'),
-	User   = require('./model'),
-	dbConn = require('../../dbConn'),
+
+var config = require('../../../configs/config'),
+	User   = require('../model'),
+	dbConn = require('../../../conns/dbConn'),
 	jwt = require('jsonwebtoken'),
-	services = require('../common/common');
+	services = require('../../common/common');
 
 	
 var userController = {
