@@ -17,9 +17,6 @@ create : function(req,res){
         console.log('userController : startTimeReq ='+ startTimeReq);
         if(contractNameReq != "" && startTimeReq != "" && typeof contractNameReq != 'undefined' && typeof startTimeReq != 'undefined')
         {   
-            
-
-
             if(global.dbConnection)
             {
                 console.log('userController : Database connection success');

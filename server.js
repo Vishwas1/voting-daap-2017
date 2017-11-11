@@ -13,9 +13,14 @@ var express = require('express'),
 
  // Setting up connection with ethereum 
  if (typeof web3 !== 'undefined') {
-	var web3 = new Web3(web3.currentProvider)
+	
+	var web3 = new Web3(web3.currentProvider);
+	console.log("web3 is connected throug currentProvider.")
+
   } else {
-	var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
+	var web3 = new Web3(new Web3.providers.HttpProvider(config.ethEndpoint));
+	console.log("web3 is configured at endpoint = " + config.ethEndpoint);
+	//console.log(web3);
   }
 
 
@@ -75,3 +80,4 @@ app.use('/api', require('./app/api'));
 app.listen(port);
 console.log('Server is up and running at port:'+port);
 
+module.exports = web3;
