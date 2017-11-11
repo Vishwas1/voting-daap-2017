@@ -11,7 +11,7 @@ create : function(req,res){
     try
     {
         let body = req.body;
-        let contractNameReq =  "Test";//body.contractName;
+        let contractNameReq =  "Test1";//body.contractName;
         console.log('userController : contractNameReq ='+ contractNameReq);
         let startTimeReq = "1234";//body.startTime;
         console.log('userController : startTimeReq ='+ startTimeReq);
