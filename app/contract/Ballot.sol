@@ -8,7 +8,7 @@ contract Ballot {
 
     // Voter class
     struct Voter {
-        bool hasVoted;
+        bool hasVoted;       
         string adharNumber;
         bool isPresent;
     }
@@ -39,11 +39,19 @@ contract Ballot {
      *  2. _votingEndTime : Time at which this voting will end (in seconds)
      */
     function Ballot(string _ballotName, 
-                    uint _votingEndTime) public {
+                    uint _votingEndTime,
+                    bytes32[] _partyNames) public {
                         
         gblChairman = msg.sender;
         gblballotName = _ballotName;
         gblvotingEndTime = _votingEndTime;
+        
+        for(uint i=0; i < _partyNames.length; i++){
+            gblpartyList[i].name = _partyNames[i];
+            gblpartyList[i].voteCount = 0;
+            gblpartyListArr.push(i);
+        }
+        
         //gblvotingStartTime = now;
     }
     
@@ -55,12 +63,15 @@ contract Ballot {
      *  2. _partyName : Party Name in string
      * Returns : True or False
      */
-    function addParty(uint _partyId, bytes32 _partyName) public returns(bool){
-        gblpartyList[_partyId].name = _partyName;
-        gblpartyList[_partyId].voteCount = 0;
-        gblpartyListArr.push(_partyId);
+    function addParty(bytes32 _partyName) public returns(bool){
+        uint partyid = gblpartyListArr.length +1;
+        gblpartyList[partyid].name = _partyName;
+        gblpartyList[partyid].voteCount = 0;
+        gblpartyListArr.push(partyid);
         return true;
     }
+    
+     
     
     /*** 
      * Function Name : AddVoter() 
