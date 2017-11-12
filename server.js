@@ -45,20 +45,18 @@ app.use(express.static('public'));
 app.set('views','./app/views');
 app.set('view engine','ejs');
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 //Routes configuration ...
-console.log("1");
 app.get('/',function(req,res){res.render('login',{title:'E-Voting | Login'});});
 // app.get('/login',function(req,res){res.render('login',{title:'Login Page', nav : nav, appName:  config.appName });});
-console.log("2");
 app.get('/register',function(req,res){res.render('register',{title:'E-Voting | Register'});});
-console.log("3");
 app.get('/ballot',function(req,res){res.render('ballot',{title:'E-Voting | Create Ballot'});});
-console.log("4");
 app.use('/api', require('./app/api'));
-console.log("4");
 
 //listen and start the server
 app.listen(port);
-// console.log('Server is up and running at port:'+port);
-// console.log('web3 :'+ web3.eth.accounts[0]);
-
