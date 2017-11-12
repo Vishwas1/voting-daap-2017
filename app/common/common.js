@@ -1,6 +1,7 @@
 var config = require('../../configs/config'),
 	ethconfig = require('../../configs/ethConfig'),
 	User   = require('../api/model'),
+	Contract   = require('../api/ContractModel'),
 	dbConn = require('../../conns/dbConn'),
 	jwt = require('jsonwebtoken');
 
@@ -24,21 +25,59 @@ var services = {
 		});
 	},
 
-	checkIfUserExists : function(username){
+	checkIfUserExists : function(_adharnumber){
 		var OueryObj = global.dbQueryObj.collection("User1");
 		return new Promise(function(resolve,reject){
-			var query = { username :  username };
+			var query = { adharnum :  _adharnumber };
 			console.log('userController : query = '+ query);
 			//Check if UserName exists 
 			OueryObj.find(query).toArray(function(err,result){
 				if(err) throw err;
 				console.log('userController : result = '+ result.length);
-				
-				
 				if(result.length > 0)
 					resolve(result[0]);
 				else
 					reject('Authentication failed. User not found');
+			});
+		});
+	},
+	getBallotList : function(_adharnumber){
+		var OueryObj = global.dbQueryObj.collection("Contract");
+		return new Promise(function(resolve,reject){
+			var query = { adharnum :  _adharnumber };
+			console.log('userController : query = '+ query);
+			//Check if UserName exists 
+			OueryObj.find(query, {id:false}).toArray(function(err,result){
+				if(err) throw err;
+				console.log('userController : result = '+ result.length);
+				if(result.length > 0)
+					resolve(result);
+				else
+					reject('Authentication failed. User not found');
+			});
+		});
+	},
+
+	
+	getBallotList_ : function(_adharnumber){
+		var OueryObj = global.dbQueryObj.collection("Contract");
+		return new Promise(function(resolve,reject){
+			var query = { adharnum :  _adharnumber };
+			console.log('Common :: getBallotList : query = '+ query);
+			//Check if UserName exists 
+			//{}, { _id: false, name: true, address: true }
+			OueryObj.find(
+				query, 
+				{id: false,contractname: true, adharnum :true  }
+			)
+			.toArray(function(err,result){
+				if(err){
+					console.log('Common :: getBallotList : result = '+ result.length);
+					reject(err);		
+				}else{
+					console.log('Common :: getBallotList : result = '+ result.length);
+					resolve(result);		
+				}
 			});
 		});
 	},
@@ -47,12 +86,16 @@ var services = {
 		var OueryObj = global.dbQueryObj.collection(model);
 		return new Promise(function(resolve,reject){
 			OueryObj.insertOne(objToInsert, function(err, result) {
-			    if (err) throw err;
-			    console.log('userController : Promise1 resolved: result.insertedCount = '+ result.insertedCount);
-			    if(result.insertedCount == 1)
-			    	resolve('Inserted');
-			    else
-			    	reject(result);
+			    if(err){
+					console.log('Common :: insertIntoDb : Promise1 rejected: error = '  + err) ;
+					reject(err);
+				}else{
+					console.log('Common ::  insertIntoDb : Promise1 resolved: result.insertedCount = '+ result.insertedCount);
+					if(result.insertedCount == 1)
+						resolve('Inserted');
+			    }
+			   
+			    	
 				});
 		});
 	},
@@ -89,7 +132,7 @@ var services = {
 						console.log('Contract mined! error = ', e);
 						reject(e);
 					}else{
-						if (typeof contract.address !== 'undefined') {
+						if (typeof contract.address != 'undefined') {
 							console.log('Contract mined! address: ' + contract.address + ' transactionHash: ' + contract.transactionHash);
 							resolve(contract.address);
 					   }
@@ -115,6 +158,33 @@ var services = {
 						resolve(result);
 					}
 				});
+			}
+		});
+	},
+
+	createAccount : function(_password){
+		return new Promise(function(resolve,reject){
+			console.log("Inside createAccount method");
+			try{
+				if(global.web3 != 'undefined'){
+					var web3 = global.web3;
+					var accountAddr  = web3.eth.accounts[0];
+					web3.personal.newAccount(_password, function(error, result){
+						if(error){
+							console.log("Common :: Method createAccount  ,  error = ", error);
+							reject(error);
+						}else{
+							console.log("Common :: Method createAccount  ,  result = ", result);
+							resolve(result);
+						}
+					});
+				}else{
+					console.log("Common :: Method createAccount , global.web3 is undefined");	
+				}
+
+			}catch(e){
+				console.log("Common :: Method createAccount , Inside Catch errror = "+ e.Message);
+				reject(e);
 			}
 		});
 	},

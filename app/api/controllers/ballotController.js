@@ -1,9 +1,10 @@
 var config = require('../../../configs/config'),
 User   = require('../model'),
+Contract   = require('../ContractModel'),
 dbConn = require('../../../conns/dbConn'),
 jwt = require('jsonwebtoken'),
 services = require('../../common/common');
-
+adharvalidator = require('aadhaar-validator')
 //create,addParty,addvoter,validateVoter,getListOfParties,doVoting
 var ballotController = {
 
@@ -11,29 +12,55 @@ var ballotController = {
         console.log('ballotController : create method begins');
         try
         {
-            let body = req.body;
-            let contractNameReq =  "Test1";//body.contractName;
+            var body = req.body;
+            var adharnumReq =  body.adharnumber;
+            adharnumReq ="1235";
+            console.log('ballotController : adharnumReq ='+ adharnumReq);
+            var contractNameReq = body.contractName;
+            contractNameReq = "Test Contract";
             console.log('ballotController : contractNameReq ='+ contractNameReq);
-            let startTimeReq = "1234";//body.startTime;
+            var startTimeReq = body.startTime;
+            startTimeReq = "123"
             console.log('ballotController : startTimeReq ='+ startTimeReq);
-            let partyArrReq =['BJP','CONG', 'SAPA'];//body.startTime;
+            var partyArrReq = body.partyArr;
+            partyArrReq = ["BJO", "TEST", "TEST2"];
             console.log('ballotController : partyArrReq.length ='+ partyArrReq.length);
             if(contractNameReq != "" && startTimeReq != "" && typeof contractNameReq != 'undefined' && typeof startTimeReq != 'undefined')
             {   
                 if(global.dbConnection)
                 {
+                    var model = "Contract";
                     console.log('ballotController : Before calling service.newContract services = '+ services);
                     // services.unlockAccount()
                     // .then(function(res){
-                        //console.log('ballotController : unlockAccount Success '); 
+                    //     console.log('ballotController : unlockAccount Success '); 
                         services.newContract(contractNameReq,startTimeReq,partyArrReq)
                         .then(function(result){
-                            //If not then insert - Resolve promise
-                            console.log('ballotController : newContract Success '); 
-                            return res.json({status: 'Success' , address : result});  
-                        }).catch(function(err){
-                            //Alerady exists in the db - Reject Promise - respond saying that user name already exists
+                            console.log('ballotController : newContract Success , contract address = ' + result); 
+                            var contractVar = new Contract({
+                                adharnum : adharnumReq,
+                                contractaddr : result,
+                                contractname : contractNameReq,
+                                contractStartTime : "",
+                                contractEndTime : ""
+                                });
+
+                            services.insertIntoDb(contractVar,model);
+                        }, function(err){
                             console.log('ballotController : newContract fail ');
+                            return res.json({status: 'Error' , message : err});
+                        })
+                        .then(function(result){
+                            //If not then insert - Resolve promise
+                            console.log('ballotController : Inserted into db  success'); 
+                            return res.json({status: 'Success' , address : result});  
+                        }, function(err){
+                            console.log('ballotController : Inserted into db  fail  err = ', err); 
+                            return res.json({status: 'Error' , message : err});
+                        })
+                        .catch(function(err){
+                            //Alerady exists in the db - Reject Promise - respond saying that user name already exists
+                            console.log('ballotController : Inside catch'); 
                             return res.json({status: 'Error' , message : err});
                         });
                     // })
@@ -67,8 +94,8 @@ var ballotController = {
         try
         {
             let body = req.body;
-            let partyName =  "TestParty";//body.partyname;
-            console.log('ballotController : partyName ='+ partyName);
+            let partyName =  body.partyname;
+            console.log('ballotController : partyname ='+ partyname);
             let contractAddr =  "0x9ba2fee58228ec40de2cd4534ce5e6ffca89674a";//body.contractaddr;
             console.log('ballotController : contractAddr ='+ contractAddr);
             if(partyName != "" && contractAddr != "" && typeof partyName != 'undefined' && typeof contractAddr != 'undefined')
@@ -111,9 +138,9 @@ var ballotController = {
         try
         {
             let body = req.body;
-            let adharNumber =  "1234-1234";//body.adharNumber;
+            let adharNumber = body.adharNumber;
             console.log('ballotController : adharNumber ='+ adharNumber);
-            let contractAddr =  "0x9ba2fee58228ec40de2cd4534ce5e6ffca89674a";//body.contractaddr;
+            let contractAddr =  body.contractaddr;
             console.log('ballotController : contractAddr ='+ contractAddr);
             if(adharNumber != "" && typeof adharNumber != 'undefined')
             {   
@@ -152,7 +179,7 @@ var ballotController = {
         console.log('ballotController : getListOfParties method begins');
         try
         {
-            let contractAddr =  "0x9ba2fee58228ec40de2cd4534ce5e6ffca89674a";//body.contractaddr;
+            let contractAddr = req.body.contractaddr;
             console.log('ballotController : contractAddr ='+ contractAddr);
             if(contractAddr != "" && typeof contractAddr != 'undefined'){  
                 if(global.dbConnection){
@@ -301,6 +328,19 @@ var ballotController = {
         }
         console.log('ballotController : getPartyVoteCount method ends');
     },
+
+
+    isValidAdhar : function(req, res){
+        console.log('ballotController : isValidAdhar method begins');
+        let adharnumber =  "611210082533";//body.adharNumber;
+        console.log('ballotController : adharnumber ='+ adharnumber);
+        if(adharnumber != null){
+            console.log('ballotController : Before calling   adharvalidator.isValidNumber()');
+            var isValid = adharvalidator.isValidNumber(adharnumber);
+            console.log('ballotController : After calling   adharvalidator.isValidNumber() isValid = '+ isValid);
+            return res.json({status: 'Success' , message : isValid.toString()});  
+        }
+    }
 
 
 }
