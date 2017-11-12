@@ -179,14 +179,14 @@
                                     Voter List
                                 </h4>
                             </div>
-                            <form class="form-horizontal" method="POST">
+                            <div class="form-horizontal">
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">
                                         Adhaar Numbers
                                         </label>
                                         <div class="col-sm-10">
-                                            <input autocomplete="off" class="tagsinput-typeahead form-control adhaar" type="text"/>
+                                            <input autocomplete="off" class="tagsinput-typeahead form-control adhaarList" type="text"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed">
@@ -195,14 +195,14 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-default" data-dismiss="modal" type="button">
+                                    <button class="btn btn-default" id="closevoter" type="button">
                                     Close
                                     </button>
-                                    <button class="btn btn-primary" id="save_changes" type="submit">
-                                    Upload
+                                    <button class="btn btn-primary" id="addvoter" type="button">
+                                    Add 
                                     </button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -222,15 +222,12 @@
         <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
         <script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
         <script>
-
-         function showList(ballotList){
-                // $('')
-         }
+         var currentBallotAddr ='';
            $(document).ready(function () {
 
                 let ballotList = [];
-                let currentballot ='';
-
+                
+                
                 $('.tagsinput-typeahead').tagsinput({});
                 $('input.date').datepicker({
                     format: "dd/mm/yyyy",
@@ -240,14 +237,65 @@
                     checkboxClass: 'icheckbox_square-green',
                     radioClass: 'iradio_square-green',
                 });
+                getContractList('0987');
+                //listBallotUI(ballotList)
+                $('#closevoter').click(function(e){
+                    debugger;
+                     $('#modelWindow').modal('hide');
+                     
+                });
 
-                listBallotUI(ballotList)
+                $('#addvoter').click(function(e){
+                    //debugger;
 
-                $('#openModalVoterList').click(function(e){
+                    if(currentBallotAddr != "" && currentBallotAddr != 'undefined'){
+                        let adharNumbers = $('.adhaarList').val();
+                        if(adharNumbers != 'undefined'){
+                           let adharNumbersArr = adharNumbers.split(','); 
+                           if(adharNumbersArr != 'undefined' && adharNumbersArr.length >0){
+                            adharNumbersArr.forEach(function(element) {
+                                var data ={
+                                adharNumber: element,
+                                contractaddr : currentBallotAddr
+                                }
 
-                    $('#modelWindow').modal('show');
+                                $.ajax({
+                                method: "POST",
+                                url: "/api/add-voter",
+                                async : false,
+                                data: data,
+                                success: function (res) {
+                                        if(res.status == 'Success' && res.message != "" && res.message !='undefined'){
+                                            console.log(res.message);
+                                        }else{
+                                            console.log("Contract creation fails.....");
+                                        }
+                                    }
+                                });          
+                              }, this);
+                           }else{
+                            console.log('adharNumbersArr undefined');   
+                           }
+                        }else{
+                            console.log('adharnumber undefined');
+                        }
+                        
+                        
+                    }else{
+                        console.log('currentBallotAddr is blank');
+                    }
+                    
                 })
             });
+
+            $(document).on('click', '.openModalVoterList', function () {
+            //$(document).click('.openModalVoterList',function(e){
+                debugger;
+                    currentBallotAddr = $(this).data("contractaddr")
+                    console.log($(this).data("contractaddr"));
+                    $('#modelWindow').modal('show');
+            });
+
             $(document).on('click', '.add', function () {
                 var parentId = $(this).closest('table').attr('id');
                 var $tr = $(this).closest('tr');
@@ -299,9 +347,9 @@
                     }
                 });
             });
-            var ballotList = '[{"_id":"5a085561e642d40f10649562","adharnum":"0987","contractaddr":"0x97bd4a0bc97b9fe327cf18b63e7c91625df65a9f","contractname":"Panchyat Election","contractStartTime":"","contractEndTime":""},{"_id":"5a085a8bf1147f28a84bba60","adharnum":"0987","contractaddr":"0x9e34cb7317b08fcdff8873d17b0e6d2316cc9df5","contractname":"Election 001","contractStartTime":"","contractEndTime":""},{"_id":"5a085ab2f1147f28a84bba61","adharnum":"0987","contractaddr":"0x1d0bab544637a3b0f9f9f2138dd25686cc73f854","contractname":"Election 001","contractStartTime":"","contractEndTime":""},{"_id":"5a085b0df1147f28a84bba62","adharnum":"0987","contractaddr":"0x42b1ebf6c1f0eaaa2adcf9051c62fe37f51b5b73","contractname":"Test","contractStartTime":"","contractEndTime":""},{"_id":"5a085b38f1147f28a84bba63","adharnum":"0987","contractaddr":"0x69eb0dc06b49ebcfd843fa79951a29f0eb3974b5","contractname":"Election 001","contractStartTime":"","contractEndTime":""},{"_id":"5a085b6bf1147f28a84bba64","adharnum":"0987","contractaddr":"0xf9ca53ee60c46715f5863ae47d00275bcc5aff95","contractname":"Test Elect001","contractStartTime":"","contractEndTime":""}]'
+            //var ballotList = '[{"_id":"5a085561e642d40f10649562","adharnum":"0987","contractaddr":"0x97bd4a0bc97b9fe327cf18b63e7c91625df65a9f","contractname":"Panchyat Election","contractStartTime":"","contractEndTime":""},{"_id":"5a085a8bf1147f28a84bba60","adharnum":"0987","contractaddr":"0x9e34cb7317b08fcdff8873d17b0e6d2316cc9df5","contractname":"Election 001","contractStartTime":"","contractEndTime":""},{"_id":"5a085ab2f1147f28a84bba61","adharnum":"0987","contractaddr":"0x1d0bab544637a3b0f9f9f2138dd25686cc73f854","contractname":"Election 001","contractStartTime":"","contractEndTime":""},{"_id":"5a085b0df1147f28a84bba62","adharnum":"0987","contractaddr":"0x42b1ebf6c1f0eaaa2adcf9051c62fe37f51b5b73","contractname":"Test","contractStartTime":"","contractEndTime":""},{"_id":"5a085b38f1147f28a84bba63","adharnum":"0987","contractaddr":"0x69eb0dc06b49ebcfd843fa79951a29f0eb3974b5","contractname":"Election 001","contractStartTime":"","contractEndTime":""},{"_id":"5a085b6bf1147f28a84bba64","adharnum":"0987","contractaddr":"0xf9ca53ee60c46715f5863ae47d00275bcc5aff95","contractname":"Test Elect001","contractStartTime":"","contractEndTime":""}]'
             function getContractList(adhaar){
-                debugger;
+                //debugger;
                 let data = {
                     adharnumber : adhaar
                 }
@@ -312,6 +360,7 @@
                     success: function (data) {
                         if(data.status == 'Success' && data.message != "" && data.message !='undefined'){
                             console.log(data.message);
+                            listBallotUI(data.message);
                         }else{
                             console.log("Contract creationi fails.....");
                         }
@@ -321,13 +370,14 @@
             }
 
             function listBallotUI(contractlist){
-                var ballotArray = JSON.parse(ballotList);
-                console.log(ballotArray)
+                var ballotArray = JSON.parse(contractlist);
+                console.log(contractlist)
+                //debugger;
                 let html = '';
                 ballotArray.forEach(function(ballot){
 
                     html +='<li class="list-group-item">'
-                    html +='<h4 class="list-group-item-heading">'+ballot.contractname+'</h4> <button data-contractaddr="'+ballot.contractaddr+'">+</button>'
+                    html +='<h4 class="list-group-item-heading">'+ballot.contractname+'</h4><span><button class="btn btn-info openModalVoterList" data-contractaddr="'+ballot.contractaddr+'">+</button></span>'
                     html+='</li>'
                   
                 })

@@ -117,14 +117,19 @@ var userController = {
 				{
 					services.checkIfUserExists(adharnumberReq)
 					.then(function(user){
+						console.log('USer == '+ user);
 						if(typeof user == 'undefined'){
 							return res.json({status : 'Error', message : 'Authentication failed. User not found'});
 						}else{
-							if(user.password === passwordReq){
-								res.json({
-						          status: 'Success',
-						          message: 'Login successfull!',
-						        });
+							if(user.password == passwordReq){
+								var objTosend = {
+									status: 'Success',
+									message: 'Login successfull!',
+									adhaar : user.adharnum,
+									username : user.username
+								  };
+								  console.log('object to send = ', objTosend);
+								res.json(objTosend);
 							}else{
 								return res.json({status : 'Error', message : 'Authentication failed. Wrong password'});
 							}

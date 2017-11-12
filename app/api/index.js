@@ -79,7 +79,7 @@ router.post('/validate-adhar',ballotCtrl.isValidAdhar);
  * http://localhost:3000/api/create-ballot
  * http://localhost:3000/api/addparty
  * http://localhost:3000/api/parties-list
- * http://localhost:3000/api/addvoter
+ * http://localhost:3000/api/add-voter
  * http://localhost:3000/api/validate-voter
  * http://localhost:3000/api/vote
  * http://localhost:3000/api/vote-count

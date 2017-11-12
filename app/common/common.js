@@ -31,9 +31,23 @@ var services = {
 			var query = { adharnum :  _adharnumber };
 			console.log('userController : query = '+ query);
 			//Check if UserName exists 
-			OueryObj.find(query).toArray(function(err,result){
+			// OueryObj.find({}).and([
+			// 	{ adharnum: _adharnumber }
+			// ]).toArray(function(err,result){
+			// 	if(err) throw err;
+			// 	console.log('userController : result = '+ result);
+			// 	if(result.length > 0)
+			// 		resolve(result[0]);
+			// 	else
+			// 		reject('Authentication failed. User not found');
+			// });;
+
+			OueryObj.find(query)
+			.toArray(function(err,result){
 				if(err) throw err;
-				console.log('userController : result = '+ result.length);
+				console.log('userController : result = '+ result[0].username);
+				console.log('userController : result = '+ result[0].password);
+				console.log('userController : result = '+ result);
 				if(result.length > 0)
 					resolve(result[0]);
 				else
@@ -145,7 +159,7 @@ var services = {
 	unlockAccount : function(){
 		return new Promise(function(resolve,reject){
 			console.log("Inside unlockAccount method");
-			if(global.web3 !== 'undefined'){
+			if(global.web3 != 'undefined'){
 				var web3 = global.web3;
 				var accountAddr  = web3.eth.accounts[0];
 				var password =  ethconfig.passKey;
@@ -419,28 +433,34 @@ var services = {
 function  createContractInstance(addr){
     //var     abiDefinitionString = document.getElementById('compiled_abidefinition').value;
     //var     abiDefinition = JSON.parse(abiDefinitionString);
-	console.log("Method createContractInstance() starts global = "+ global);
-    // Instance uses the definition to create the function
-	var instance;
-	if(typeof global.web3 != 'undefined' || typeof addr !='undefined'){
-        if(typeof global.web3.eth !='undefined'){
-			var    contract = global.web3.eth.contract(ethconfig.abi);
-			console.log("Method createContractInstance(): After loagin ethconfig.abi ");
-			// THIS IS AN EXAMPLE - How to create a deploy using the contract
-			// var instance = contract.new(constructor_params, {from:coinbase, gas:10000})
-			// Use the next for manual deployment using the data generated
-			// var contractData = contract.new.getData(constructor_params, {from:coinbase, gas:10000});
-			var    address = addr;
-			console.log("Method createContractInstance(): address = "+ address);
-			// Instance needs the address
-			var    instance = contract.at(address);
-			console.log("Method createContractInstance(): After creatinng instance of contract");
+	console.log("Method createContractInstance() starts ");
+	// Instance uses the definition to create the function
+	try{
+		var instance;
+		if(typeof global.web3 != 'undefined' || typeof addr !='undefined'){
+			if(typeof global.web3.eth !='undefined'){
+				console.log("Method createContractInstance(): Before loagin ethconfig.abi ");
+				var    contract = global.web3.eth.contract(ethconfig.abi);
+				console.log("Method createContractInstance(): After loagin ethconfig.abi ");
+				// THIS IS AN EXAMPLE - How to create a deploy using the contract
+				// var instance = contract.new(constructor_params, {from:coinbase, gas:10000})
+				// Use the next for manual deployment using the data generated
+				// var contractData = contract.new.getData(constructor_params, {from:coinbase, gas:10000});
+				var    address = addr;
+				console.log("Method createContractInstance(): address = "+ address);
+				// Instance needs the address
+				var    instance = contract.at(address);
+				console.log("Method createContractInstance(): After creatinng instance of contract");
+			}else{
+				console.log("Method createContractInstance(): global.web3.eth is null or emtpy ");	
+			}
 		}else{
-			console.log("Method createContractInstance(): global.web3.eth is null or emtpy ");	
+			console.log("Method createContractInstance(): global.web3 || contract address  is null or emtpy ");	
 		}
-	}else{
-		console.log("Method createContractInstance(): global.web3 || contract address  is null or emtpy ");	
+	}catch(e){
+         console.log("Method createContractInstance(): Inside catch, Error  = " + e);
 	}
+	
 	console.log("Method createContractInstance()ends");
     return instance;
 }

@@ -14,12 +14,16 @@ var ballotController = {
         {
             var body = req.body;
             var adharnumReq =  body.adharnumber;
+            adharnumReq = '0987';
             console.log('ballotController : adharnumReq ='+ adharnumReq);
             var contractNameReq = body.contractName;
+            contractNameReq = 'Contract001';
             console.log('ballotController : contractNameReq ='+ contractNameReq);
             var startTimeReq = body.startTime;
+            startTimeReq = 1
             console.log('ballotController : startTimeReq ='+ startTimeReq);
             var partyArrStr = body.partyArr;
+            partyArrStr = "BJP,CONG,SORE";
             var partyArrReq = partyArrStr.split(',');
             console.log('ballotController : partyArrReq.length ='+ partyArrReq.length);
             if(contractNameReq != "" && startTimeReq != "" && typeof contractNameReq != 'undefined' && typeof startTimeReq != 'undefined')
@@ -28,10 +32,10 @@ var ballotController = {
                 {
                     var model = "Contract";
                     console.log('ballotController : Before calling service.newContract services = '+ services);
-                    // services.unlockAccount()
-                    // .then(function(res){
-                    //     console.log('ballotController : unlockAccount Success '); 
-                    startTimeReq = 1;
+                    services.unlockAccount()
+                    .then(function(res){
+                        console.log('ballotController : unlockAccount Success '); 
+                        startTimeReq = 1;
                         services.newContract(contractNameReq,startTimeReq,partyArrReq)
                         .then(function(result){
                             console.log('ballotController : newContract Success , contract address = ' + result); 
@@ -61,12 +65,12 @@ var ballotController = {
                             console.log('ballotController : Inside catch'); 
                             return res.json({status: 'Error' , message : err});
                         });
-                    // })
-                    // .catch(function(err){
-                    //     //Alerady exists in the db - Reject Promise - respond saying that user name already exists
-                    //     console.log('ballotController : unlockAccount fail ');
-                    //     return res.json({status: 'Error' , message : err});
-                    // });
+                    })
+                    .catch(function(err){
+                        //Alerady exists in the db - Reject Promise - respond saying that user name already exists
+                        console.log('ballotController : unlockAccount fail ');
+                        return res.json({status: 'Error' , message : err});
+                    });
                 }
                 else
                 {
@@ -136,22 +140,28 @@ var ballotController = {
         try
         {
             let body = req.body;
-            let adharNumber = body.adharNumber;
+            let adharNumber = body.adharNumber;             
             console.log('ballotController : adharNumber ='+ adharNumber);
             let contractAddr =  body.contractaddr;
             console.log('ballotController : contractAddr ='+ contractAddr);
             if(adharNumber != "" && typeof adharNumber != 'undefined')
             {   
                 if(global.dbConnection)
-                {
-                    console.log('ballotController : Before calling service.newContract services = '+ services);
+                {                   
+                    console.log('ballotController : addVoter ,adharNumber  = '+ adharNumber);
+                    console.log('ballotController : Before calling addVoter');
                     services.addVoter(adharNumber,contractAddr)
                     .then(function(result){
-                        console.log('ballotController : addVoter Pass '); 
-                        return res.json({status: 'Success' , tran : result});  
-                    }).catch(function(err){
-                        console.log('ballotController : addVoter Fails ');
-                        return res.json({status: 'Error' , message : err});
+                        console.log('ballotController : addVoter Pass, trans = '+ result ); 
+                        return res.json({status: 'Success' , message : 'Voters added'});  
+                        
+                    }, function(e){
+                          console.log('ballotController : addVoter Fails, trans = '+ result ); 
+                          return res.json({status: 'Erro' , message : 'Failuer adding voters'});  
+                    })
+                    .catch(function(err){
+                        console.log('ballotController : Inside catch addVoter Fails ');                                
+                        return res.json({status: 'Erro' , message : err});  
                     });
                 }
                 else
@@ -162,8 +172,8 @@ var ballotController = {
             }
             else
             {
-                console.log('ballotController : UserName or Password can not be null or empty');
-                return res.json({status: 'Error',  message : 'UserName or Password can not be null or empty'});
+                console.log('ballotController : adharNumber or adharNumber can not be null or empty');
+                return res.json({status: 'Error',  message : 'adharNumber or adharNumber can not be null or empty'});
             }
         }
         catch(err)
