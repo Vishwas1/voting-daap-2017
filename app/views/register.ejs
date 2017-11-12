@@ -97,47 +97,51 @@
                    // console.log($(this).val())
             })
 
-            $('.adhaar').on('keyup',function(e){
-                let adhaar = $(this).val();
+            // $('.adhaar').on('keyup',function(e){
+            //     //debugger;
+            //     var adhaar = $(this).val();
 
-                if(adhaar.lenth > 4)
-                {
-                    $.ajax({
-                        method: "POST",
-                        url: "/api/validate-adhar",
-                        data: data,
-                        success: function (data) {
-                                if(data.status==1){
-                                    alert(data.message)
-                                }
-                                else{
-                                    $(".adhaar").addClass("boder-red")
-                                    alert(data.message)   
-                                }
-                        }
-                    });
-                }
-            })
+            //     if(adhaar.length > 4)
+            //     {
+            //         let data = {adharNumber : adhaar};
+            //         $.ajax({
+            //             method: "POST",
+            //             url: "/api/validate-adhar",
+            //             data: data,
+            //             success: function (data) {
+            //                     if(data.message){
+            //                         console.log("Adhaar validation");
+            //                         $(".adhaar").addClass("boder-green");
+            //                     }
+            //                     else{
+            //                         $(".adhaar").addClass("boder-red");
+            //                     }
+            //             }
+            //         });
+            //     }else{
+            //         $(".adhaar").addClass("boder-red");
+            //     }
+            // });
 
             $(document).on('click', '.register', function (e) {
                 e.preventDefault();
                 var data = {
                     username: $('.username').val(),
                     password: $('.password').val(),
-                    adhaar: $('.adhaar').val(),
+                    adharnumber: $('.adhaar').val(),
                 }
                 console.log(data)
-                // $.ajax({
-                //     method: "POST",
-                //     url: "/api/admin-create",
-                //     data: data,
-                //     success: function (data) {
-                //             if(data.status==1)
-                //                 alert(data.message)
-                //             else
-                //                 alert(data.message)
-                //     }
-                // });
+                $.ajax({
+                    method: "POST",
+                    url: "/api/admin-create",
+                    data: data,
+                    success: function (data) {
+                        if(data.status == 'success')
+                            alert(data.message)
+                        else
+                            alert(data.message)
+                    }
+                });
             });
         });
     </script>

@@ -14,16 +14,13 @@ var ballotController = {
         {
             var body = req.body;
             var adharnumReq =  body.adharnumber;
-            adharnumReq ="1235";
             console.log('ballotController : adharnumReq ='+ adharnumReq);
             var contractNameReq = body.contractName;
-            contractNameReq = "Test Contract";
             console.log('ballotController : contractNameReq ='+ contractNameReq);
             var startTimeReq = body.startTime;
-            startTimeReq = "123"
             console.log('ballotController : startTimeReq ='+ startTimeReq);
-            var partyArrReq = body.partyArr;
-            partyArrReq = ["BJO", "TEST", "TEST2"];
+            var partyArrStr = body.partyArr;
+            var partyArrReq = partyArrStr.split(',');
             console.log('ballotController : partyArrReq.length ='+ partyArrReq.length);
             if(contractNameReq != "" && startTimeReq != "" && typeof contractNameReq != 'undefined' && typeof startTimeReq != 'undefined')
             {   
@@ -34,6 +31,7 @@ var ballotController = {
                     // services.unlockAccount()
                     // .then(function(res){
                     //     console.log('ballotController : unlockAccount Success '); 
+                    startTimeReq = 1;
                         services.newContract(contractNameReq,startTimeReq,partyArrReq)
                         .then(function(result){
                             console.log('ballotController : newContract Success , contract address = ' + result); 
@@ -332,13 +330,13 @@ var ballotController = {
 
     isValidAdhar : function(req, res){
         console.log('ballotController : isValidAdhar method begins');
-        let adharnumber =  "611210082533";//body.adharNumber;
+        let adharnumber =  req.body.adharNumber;
         console.log('ballotController : adharnumber ='+ adharnumber);
         if(adharnumber != null){
             console.log('ballotController : Before calling   adharvalidator.isValidNumber()');
             var isValid = adharvalidator.isValidNumber(adharnumber);
             console.log('ballotController : After calling   adharvalidator.isValidNumber() isValid = '+ isValid);
-            return res.json({status: 'Success' , message : isValid.toString()});  
+            return res.json({status: 'Success' , message : isValid});  
         }
     }
 

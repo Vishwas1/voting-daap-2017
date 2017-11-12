@@ -276,18 +276,45 @@
                 var data = {
                     contractName: $('.ballot-name').val(),
                     startTime: $('.start-date').val(),
-                    partyArr: $('.nominee').val()
+                    partyArr: $('.nominee').val(),
+                    adharnumber : '0987'
                 }
+                debugger;
                 console.log(data)
                 $.ajax({
                     method: "POST",
-                    url: "../api/create-ballot",
+                    url: "/api/create-ballot",
                     data: data,
                     success: function (data) {
-
+                        if(data.status == 'Success'){
+                            debugger;
+                            getContractList('0987');
+                        }else{
+                            console.log("Contract creationi fails.....");
+                        }
                     }
                 });
             });
+
+            function getContractList(adhaar){
+                debugger;
+                let data = {
+                    adharnumber : adhaar
+                }
+                $.ajax({
+                    method: "POST",
+                    url: "/api/ballot-list",
+                    data: data,
+                    success: function (data) {
+                        if(data.status == 'Success' && data.message != "" && data.message !='undefined'){
+                            console.log(data.message);
+                        }else{
+                            console.log("Contract creationi fails.....");
+                        }
+                    }
+                });
+
+            }
         </script>
     </body>
 </html>

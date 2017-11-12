@@ -84,6 +84,9 @@ router.post('/validate-adhar',ballotCtrl.isValidAdhar);
  * http://localhost:3000/api/vote
  * http://localhost:3000/api/vote-count
  * http://localhost:3000/api/validate-adhar
+ * http://localhost:3000/api/ballot-list
+ * http://localhost:3000/api/admin-create
+ * http://localhost:3000/api/admin-login
  * 
  */
 

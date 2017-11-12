@@ -42,7 +42,7 @@ var userController = {
 						}, function(err){
 							//Alerady exists in the db - Reject Promise - respond saying that user name already exists
 							console.log('userController : Promise1 rejected: User already exists in Database ');
-							return res.json({status: 'Error' , message : 'Error while checking user exists or not'});
+							return res.json({status: 'Error' , message : 'User already exists in Database'});
 						})
 						.then(function(result){
 							publickey = result;	
@@ -66,7 +66,7 @@ var userController = {
 						.then(function(result){
 							// Successfully inserted into db - 3rd Promise resolved
 							console.log('userController : Promise3 resolved: User inserted into db');
-							return res.status(200).json({status : 'success',  message: 'success'});								
+							return res.status(200).json({status : 'success',  message: 'User created successfully!'});								
 						},function(err){
 							// Successfully inserted into db - 3rd Promise rejected
 							console.log('userController : Promise3 rejected: Could not insert into Database err = '+err);
@@ -122,7 +122,7 @@ var userController = {
 						}else{
 							if(user.password === passwordReq){
 								res.json({
-						          success: true,
+						          status: 'Success',
 						          message: 'Login successfull!',
 						        });
 							}else{
@@ -158,8 +158,7 @@ var userController = {
 		console.log('getBallotList : authenticate method starts');
 		var adharnumberReq = "";
 		var body = req.body;
-		adharnumberReq =  body.adharnumber;
-		adharnumberReq = "1235";
+		adharnumberReq =  body.adharnumber;		
 		console.log('getBallotList : adharnumberReq ='+ adharnumberReq);
 		if(adharnumberReq != "" && adharnumberReq != 'undefined')
 		{
