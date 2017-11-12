@@ -229,7 +229,7 @@
            $(document).ready(function () {
 
                 let ballotList = [];
-                let currentballot = [];
+                let currentballot ='';
 
                 $('.tagsinput-typeahead').tagsinput({});
                 $('input.date').datepicker({
@@ -244,7 +244,7 @@
                 listBallotUI(ballotList)
 
                 $('#openModalVoterList').click(function(e){
-                    
+
                     $('#modelWindow').modal('show');
                 })
             });
