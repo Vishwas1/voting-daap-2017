@@ -34,37 +34,35 @@ var ballotController = {
                     console.log('ballotController : Before calling service.newContract services = '+ services);
                     services.unlockAccount()
                     .then(function(res){
-                        console.log('ballotController : unlockAccount Success '); 
+                        console.log('ballotController : Promise resolved : unlockAccount Success '); 
                         startTimeReq = 1;
                         services.newContract(contractNameReq,startTimeReq,partyArrReq)
-                        .then(function(result){
-                            console.log('ballotController : newContract Success , contract address = ' + result); 
-                            var contractVar = new Contract({
-                                adharnum : adharnumReq,
-                                contractaddr : result,
-                                contractname : contractNameReq,
-                                contractStartTime : "",
-                                contractEndTime : ""
-                                });
+                    },function(e){
+                        console.log('ballotController :  Promise rejected : unlockAccount, error  =', e);
+                        return res.json({status: 'Error' , message : e});
+                    })
+                    .then(function(result){
+                        console.log('ballotController : Promise resolved : newContract , contract address = ' + result); 
+                        var contractVar = new Contract({
+                            adharnum : adharnumReq,
+                            contractaddr : result,
+                            contractname : contractNameReq,
+                            contractStartTime : "",
+                            contractEndTime : ""
+                            });
 
-                            services.insertIntoDb(contractVar,model);
-                        }, function(err){
-                            console.log('ballotController : newContract fail ');
-                            return res.json({status: 'Error' , message : err});
-                        })
-                        .then(function(result){
-                            //If not then insert - Resolve promise
-                            console.log('ballotController : Inserted into db  success'); 
-                            return res.json({status: 'Success' , address : result});  
-                        }, function(err){
-                            console.log('ballotController : Inserted into db  fail  err = ', err); 
-                            return res.json({status: 'Error' , message : err});
-                        })
-                        .catch(function(err){
-                            //Alerady exists in the db - Reject Promise - respond saying that user name already exists
-                            console.log('ballotController : Inside catch'); 
-                            return res.json({status: 'Error' , message : err});
-                        });
+                        services.insertIntoDb(contractVar,model);
+                    }, function(err){
+                        console.log('ballotController : Promise rejected : newContract  ');
+                        return res.json({status: 'Error' , message : err});
+                    })
+                    .then(function(result){
+                        //If not then insert - Resolve promise
+                        console.log('ballotController : Promise resolved : insertIntoDb  success'); 
+                        return res.json({status: 'Success' , address : result});  
+                    }, function(err){
+                        console.log('ballotController : Promise rejected : insertIntoDb  err = ', err); 
+                        return res.json({status: 'Error' , message : err});
                     })
                     .catch(function(err){
                         //Alerady exists in the db - Reject Promise - respond saying that user name already exists
