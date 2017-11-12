@@ -31,9 +31,23 @@ var services = {
 			var query = { adharnum :  _adharnumber };
 			console.log('userController : query = '+ query);
 			//Check if UserName exists 
-			OueryObj.find(query).toArray(function(err,result){
+			// OueryObj.find({}).and([
+			// 	{ adharnum: _adharnumber }
+			// ]).toArray(function(err,result){
+			// 	if(err) throw err;
+			// 	console.log('userController : result = '+ result);
+			// 	if(result.length > 0)
+			// 		resolve(result[0]);
+			// 	else
+			// 		reject('Authentication failed. User not found');
+			// });;
+
+			OueryObj.find(query)
+			.toArray(function(err,result){
 				if(err) throw err;
-				console.log('userController : result = '+ result.length);
+				console.log('userController : result = '+ result[0].username);
+				console.log('userController : result = '+ result[0].password);
+				console.log('userController : result = '+ result);
 				if(result.length > 0)
 					resolve(result[0]);
 				else
@@ -145,7 +159,7 @@ var services = {
 	unlockAccount : function(){
 		return new Promise(function(resolve,reject){
 			console.log("Inside unlockAccount method");
-			if(global.web3 !== 'undefined'){
+			if(global.web3 != 'undefined'){
 				var web3 = global.web3;
 				var accountAddr  = web3.eth.accounts[0];
 				var password =  ethconfig.passKey;
