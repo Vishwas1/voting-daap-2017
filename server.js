@@ -23,7 +23,7 @@ dbConn.connection().then(function(res){
 });
 
 //connecting to ethereum
-global.web3 =  web3Conn.web3Meth();
+// global.web3 =  web3Conn.web3Meth();
 
 
 //setting secret variable 
