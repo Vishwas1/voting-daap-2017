@@ -143,6 +143,7 @@
                                             
                                         </ul>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -218,6 +219,7 @@
         <script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
         <script>
          var currentBallotAddr ='';
+
            $(document).ready(function () {
 
                 let ballotList = [];
@@ -362,7 +364,7 @@
             }
 
             function listBallotUI(contractlist){
-               
+
                 if(contractlist !='No Contacts found'){
 
                 var ballotArray = JSON.parse(contractlist);
