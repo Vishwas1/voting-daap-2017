@@ -419,28 +419,34 @@ var services = {
 function  createContractInstance(addr){
     //var     abiDefinitionString = document.getElementById('compiled_abidefinition').value;
     //var     abiDefinition = JSON.parse(abiDefinitionString);
-	console.log("Method createContractInstance() starts global = "+ global);
-    // Instance uses the definition to create the function
-	var instance;
-	if(typeof global.web3 != 'undefined' || typeof addr !='undefined'){
-        if(typeof global.web3.eth !='undefined'){
-			var    contract = global.web3.eth.contract(ethconfig.abi);
-			console.log("Method createContractInstance(): After loagin ethconfig.abi ");
-			// THIS IS AN EXAMPLE - How to create a deploy using the contract
-			// var instance = contract.new(constructor_params, {from:coinbase, gas:10000})
-			// Use the next for manual deployment using the data generated
-			// var contractData = contract.new.getData(constructor_params, {from:coinbase, gas:10000});
-			var    address = addr;
-			console.log("Method createContractInstance(): address = "+ address);
-			// Instance needs the address
-			var    instance = contract.at(address);
-			console.log("Method createContractInstance(): After creatinng instance of contract");
+	console.log("Method createContractInstance() starts ");
+	// Instance uses the definition to create the function
+	try{
+		var instance;
+		if(typeof global.web3 != 'undefined' || typeof addr !='undefined'){
+			if(typeof global.web3.eth !='undefined'){
+				console.log("Method createContractInstance(): Before loagin ethconfig.abi ");
+				var    contract = global.web3.eth.contract(ethconfig.abi);
+				console.log("Method createContractInstance(): After loagin ethconfig.abi ");
+				// THIS IS AN EXAMPLE - How to create a deploy using the contract
+				// var instance = contract.new(constructor_params, {from:coinbase, gas:10000})
+				// Use the next for manual deployment using the data generated
+				// var contractData = contract.new.getData(constructor_params, {from:coinbase, gas:10000});
+				var    address = addr;
+				console.log("Method createContractInstance(): address = "+ address);
+				// Instance needs the address
+				var    instance = contract.at(address);
+				console.log("Method createContractInstance(): After creatinng instance of contract");
+			}else{
+				console.log("Method createContractInstance(): global.web3.eth is null or emtpy ");	
+			}
 		}else{
-			console.log("Method createContractInstance(): global.web3.eth is null or emtpy ");	
+			console.log("Method createContractInstance(): global.web3 || contract address  is null or emtpy ");	
 		}
-	}else{
-		console.log("Method createContractInstance(): global.web3 || contract address  is null or emtpy ");	
+	}catch(e){
+         console.log("Method createContractInstance(): Inside catch, Error  = " + e);
 	}
+	
 	console.log("Method createContractInstance()ends");
     return instance;
 }
