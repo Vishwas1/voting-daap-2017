@@ -179,7 +179,7 @@ var userController = {
 						if(contracts!=null && typeof contracts != 'undefined' && contracts.length >0){
 							return res.json({status : 'Success', message : JSON.stringify(contracts)});
 						}else{
-							return res.json({status : 'Success', message : 'No Contacts found'});
+							return res.json({status : 'Error', message : 'No Contacts found'});
 						}
 					},function(err){
 						return res.json({status : 'Error', message : err});
