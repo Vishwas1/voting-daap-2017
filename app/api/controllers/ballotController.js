@@ -14,16 +14,16 @@ var ballotController = {
         {
             var body = req.body;
             var adharnumReq =  body.adharnumber;
-            adharnumReq = '0987';
+            //adharnumReq = '0987';
             console.log('ballotController : adharnumReq ='+ adharnumReq);
             var contractNameReq = body.contractName;
-            contractNameReq = 'Contract001';
+            //contractNameReq = 'Contract001';
             console.log('ballotController : contractNameReq ='+ contractNameReq);
             var startTimeReq = body.startTime;
             startTimeReq = 1
             console.log('ballotController : startTimeReq ='+ startTimeReq);
             var partyArrStr = body.partyArr;
-            partyArrStr = "BJP,CONG,SORE";
+            //partyArrStr = "BJP,CONG,SORE";
             var partyArrReq = partyArrStr.split(',');
             console.log('ballotController : partyArrReq.length ='+ partyArrReq.length);
             if(contractNameReq != "" && startTimeReq != "" && typeof contractNameReq != 'undefined' && typeof startTimeReq != 'undefined')
@@ -96,7 +96,7 @@ var ballotController = {
             let body = req.body;
             let partyName =  body.partyname;
             console.log('ballotController : partyname ='+ partyname);
-            let contractAddr =  "0x9ba2fee58228ec40de2cd4534ce5e6ffca89674a";//body.contractaddr;
+            let contractAddr =  body.contractaddr;
             console.log('ballotController : contractAddr ='+ contractAddr);
             if(partyName != "" && contractAddr != "" && typeof partyName != 'undefined' && typeof contractAddr != 'undefined')
             {   
@@ -220,9 +220,9 @@ var ballotController = {
         try
         {
             let body = req.body;
-            let adharNumber =  "1234-12347";//body.adharNumber;
+            let adharNumber =  body.adharNumber;
             console.log('ballotController : adharNumber ='+ adharNumber);
-            let contractAddr =  "0x9ba2fee58228ec40de2cd4534ce5e6ffca89674a";//body.contractaddr;
+            let contractAddr =  body.contractaddr;
             console.log('ballotController : contractAddr ='+ contractAddr);
             if(adharNumber != "" && typeof adharNumber != 'undefined')
             {   
@@ -262,9 +262,9 @@ var ballotController = {
         try
         {
             let body = req.body;
-            let partyId =  "1";//body.adharNumber;
+            let partyId =  body.partyid;
             console.log('ballotController : partyId ='+ partyId);
-            let contractAddr =  "0x9ba2fee58228ec40de2cd4534ce5e6ffca89674a";//body.contractaddr;
+            let contractAddr =  body.contractaddr;
             console.log('ballotController : contractAddr ='+ contractAddr);
             if(partyId != "" && typeof partyId != 'undefined')
             {   
@@ -303,9 +303,9 @@ var ballotController = {
         console.log('ballotController : getPartyVoteCount method begins');
         try
         {
-            let contractAddr =  "0x9ba2fee58228ec40de2cd4534ce5e6ffca89674a";//body.contractaddr;
+            let contractAddr = body.contractaddr;
             console.log('ballotController : contractAddr ='+ contractAddr);
-            let partyId =  "1";//body.adharNumber;
+            let partyId =  body.partyid;
             console.log('ballotController : partyId ='+ partyId);
             if(contractAddr != "" && typeof contractAddr != 'undefined'){  
                 if(global.dbConnection){
