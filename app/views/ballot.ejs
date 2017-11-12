@@ -362,6 +362,9 @@
             }
 
             function listBallotUI(contractlist){
+               
+                if(contractlist !='No Contacts found'){
+
                 var ballotArray = JSON.parse(contractlist);
                 console.log(contractlist)
                 //debugger;
@@ -374,7 +377,12 @@
                   
                 })
 
-                $('#ballotList').html(html)
+                    $('#ballotList').html(html)
+                }
+                else {
+                    console.log(contractlist)
+                }
+                
             }
         </script>
     </body>
