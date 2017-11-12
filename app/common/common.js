@@ -121,151 +121,261 @@ var services = {
 
 	addParty : function(_partyName, _contractAddr){
 		return new Promise(function(resolve,reject){
-			console.log("Inside addParty method");
+			console.log("Common :: Method addParty starts..");
 			if(global.web3 !== 'undefined'){
-				console.log("global web3 is defined");
-				console.log("Before calling createContractInstance() ");
+				console.log("Common :: Method addParty : Before calling createContractInstance() ");
 				var contractInstance = createContractInstance(_contractAddr);
-				console.log("After calling createContractInstance() contractInstance :" +  contractInstance.addParty());
-				// contractInstance.addParty(_partyName,{from: global.web3.eth.accounts[0]}, function(error, result){
-				// 	if(error){
-				// 		console.log("addParty, error = ", error);
-				// 		reject(error);
-				// 	}else{
-				// 		console.log("addParty, result = ", result);
-				// 		resolve(result);
-				// 	}
-				// });
-				console.log("addParty, result =");
-				contractInstance.addParty.sendTransaction(_partyName, {from: global.web3.eth.accounts[0], gas : ethconfig.gas}, function(e,r) {
-					console.log("addParty, err =" + e);
-					console.log("addParty, result =" + r);
-				});
-				//resolve(tx);
-			}
-		});
-	},
-
-	addVoter : function(_adharNumber,_contractAddr){
-		return new Promise(function(resolve,reject){
-			console.log("Inside newContract method");
-			if(global.web3 !== 'undefined'){
-				console.log("global web3 is defined");
-				console.log("Before calling createContractInstance() ");
-				var contractInstance = createContractInstance(_contractAddr);
-				console.log("After calling createContractInstance() contractInstance :" +  contractInstance);
-				var tx = contractInstance.addVoter.call(_adharNumber);
-				resolve(tx);
-			}
-		});
-	},
-
-	validateVoter : function(_adharNumber,_contractAddr){
-		return new Promise(function(resolve,reject){
-			console.log("Inside validateVoter method");
-			if(global.web3 !== 'undefined'){
-				console.log("global web3 is defined");
-				console.log("Before calling createContractInstance() ");
-				var contractInstance = createContractInstance(_contractAddr);
-				console.log("After calling createContractInstance() contractInstance :" +  contractInstance);
-				contractInstance.validateBallotVoter.call(_adharNumber, function(error,result){
-                    if(error){
-						console.log("validateVoter error :" +  error);
-						reject(error);
+				try{
+					if(typeof contractInstance != 'undefined'){
+						console.log("Common :: Method addParty : After calling createContractInstance()");
+						console.log("Common :: Method addParty : Before calling contractInstance.addParty() ");
+						contractInstance.addParty(
+							_partyName, 
+							{from: global.web3.eth.accounts[0], gas : ethconfig.gas},
+							function(e,r){
+								if(e){
+									console.log("Common :: Method addParty : Inside Callback, rejected, err ="+ e);
+									reject(e);
+								}else{
+									console.log("Common :: Method addParty : Inside Callback, resolved, result ="+ r);
+									resolve(r);
+								}
+							}
+						);
 					}else{
-						console.log("validateVoter result :" +  result);
-						resolve(JSON.stringify(result));
+						console.log("Common :: Method addParty :  contractInstance != undefined");
+						reject(" contractInstance != undefined");	
 					}
-                });
-				
+				}catch(e){
+					console.log("Common :: Method addParty : Inside catch, err ="+ e);
+					reject(e);
+				}		
+			}else{
+				console.log("Method addParty : ");
+				reject("global.web3 is undefined");
+			}
+		});
+	},
+
+	addVoter : function(_adharNumber, _contractAddr){
+		return new Promise(function(resolve,reject){
+			console.log("Common :: Method addVoter starts..");
+			if(global.web3 !== 'undefined'){
+				console.log("Common :: Method addVoter : Before calling createContractInstance() ");
+				var contractInstance = createContractInstance(_contractAddr);
+				try{
+					if(typeof contractInstance != 'undefined'){
+						console.log("Common :: Method addVoter : After calling createContractInstance()");
+						console.log("Common :: Method addVoter : Before calling contractInstance.addParty() ");
+						contractInstance.addVoter(
+							_adharNumber, 
+							{from: global.web3.eth.accounts[0], gas : ethconfig.gas},
+							function(e,r){
+								if(e){
+									console.log("Common :: Method addVoter : Inside Callback, rejected, err ="+ e);
+									reject(e);
+								}else{
+									console.log("Common :: Method addVoter : Inside Callback, resolved, result ="+ r);
+									resolve(r);
+								}
+							}
+						);
+					}else{
+						console.log("Common :: Method addVoter :  contractInstance != undefined");
+						reject(" contractInstance != undefined");	
+					}
+				}catch(e){
+					console.log("Common :: Method addVoter : Inside catch, err ="+ e);
+					reject(e);
+				}		
+			}else{
+				console.log("Method addVoter : ");
+				reject("global.web3 is undefined");
 			}
 		});
 	},
 
 	getListOfParties : function(_contractAddr){
 		return new Promise(function(resolve,reject){
-			console.log("Inside getListOfParties method");
-			if(global.web3 !== 'undefined'){
-				console.log("global web3 is defined");
-				console.log("Before calling createContractInstance() ");
+			console.log("Common :: Method getListOfParties starts..");
+			if(global.web3 != 'undefined'){
+				console.log("Common :: Method getListOfParties : Before calling createContractInstance(),_contractAddr = "+ _contractAddr);
 				var contractInstance = createContractInstance(_contractAddr);
-				console.log("After calling createContractInstance() contractInstance :" +  contractInstance);
-				contractInstance.getListOfParties.call({}, function(error,result){
-                    if(error){
-						console.log("getListOfParties,  error :" +  error);
-						reject(error);
-					}else{
-						console.log("getListOfParties, result :" +  result);
-						resolve(JSON.stringify(result));
+				if(typeof contractInstance != 'undefined' && contractInstance != null){
+					console.log("Common :: Method getListOfParties : After calling createContractInstance()");
+				    try{
+						contractInstance.getListOfParties({},
+							{from: global.web3.eth.accounts[0], gas : ethconfig.gas},
+							function(e,r){
+								if(e){
+									console.log("Common :: Method getListOfParties : Inside Callback, rejected, err ="+ e);
+									reject(e);
+								}else{
+									console.log("Common :: Method getListOfParties : Inside Callback, resolved, result ="+ r);
+									resolve(JSON.stringify(r));
+								}
+							}
+						);
+					}catch(e){
+						console.log("Common :: Method getListOfParties : Inside catch, Error ="+ e);
+						reject(e);
 					}
-                });
+				}else{
+					console.log("Common :: Method getListOfParties :  contractInstance != undefined");
+					reject(" contractInstance != undefined");
+				}
+			}else{
+				console.log("Common :: Method getListOfParties : global.web3 is undefined");
+				reject("global.web3 is undefined");
 			}
 		});
 	},
 
-	getPartyVoteCount : function(_partyId,_contractAddr){
+	validateVoter : function(_adharNumber, _contractAddr){
 		return new Promise(function(resolve,reject){
-			console.log("Inside newContract method");
-			if(global.web3 !== 'undefined'){
-				console.log("global web3 is defined");
-				console.log("Before calling createContractInstance() ");
+			console.log("Common :: Method validateVoter starts..");
+			if(global.web3 != 'undefined'){
+				console.log("Common :: Method validateVoter : Before calling createContractInstance() ");
 				var contractInstance = createContractInstance(_contractAddr);
-				console.log("After calling createContractInstance() contractInstance :" +  contractInstance);
-				contractInstance.getTotalVoteCountOfParty.call(_partyId, function(error,result){
-                    if(error){
-						console.log("getPartyVoteCount,  error :" +  error);
-						reject(error);
+				try{
+					if(typeof contractInstance != 'undefined'){
+						console.log("Common :: Method validateVoter : After calling createContractInstance()");
+						console.log("Common :: Method validateVoter : Before calling contractInstance.addParty() ");
+						contractInstance.validateBallotVoter(
+							_adharNumber, 
+							{from: global.web3.eth.accounts[0], gas : ethconfig.gas},
+							function(e,r){
+								if(e){
+									console.log("Common :: Method validateVoter : Inside Callback, rejected, err ="+ e);
+									reject(e);
+								}else{
+									console.log("Common :: Method validateVoter : Inside Callback, resolved, result ="+ r);
+									resolve(JSON.stringify(r));
+								}
+							}
+						);
 					}else{
-						console.log("getPartyVoteCount, result :" +  result);
-						resolve(JSON.stringify(result));
+						console.log("Common :: Method validateVoter :  contractInstance != undefined");
+						reject(" contractInstance != undefined");	
 					}
-                });
-				
+				}catch(e){
+					console.log("Common :: Method validateVoter : Inside catch, err ="+ e);
+					reject(e);
+				}		
+			}else{
+				console.log("Method validateVoter : ");
+				reject("global.web3 is undefined");
 			}
 		});
 	},
 
-	doVoting : function(_partyId,_contractAddr){
+	doVoting : function(_partyId, _contractAddr){
 		return new Promise(function(resolve,reject){
-			console.log("Inside doVoting method");
-			if(global.web3 !== 'undefined'){
-				console.log("global web3 is defined");
-				console.log("Before calling createContractInstance() ");
+			console.log("Common :: Method doVoting starts..");
+			if(global.web3 != 'undefined'){
+				console.log("Common :: Method doVoting : Before calling createContractInstance() ");
 				var contractInstance = createContractInstance(_contractAddr);
-				console.log("After calling createContractInstance() contractInstance :" +  contractInstance);
-				contractInstance.doVoting.call(_partyId, function(error,result){
-                    if(error){
-						console.log("doVoting,  error :" +  error);
-						reject(error);
+				try{
+					if(typeof contractInstance != 'undefined'){
+						console.log("Common :: Method doVoting : After calling createContractInstance()");
+						console.log("Common :: Method doVoting : Before calling contractInstance.addParty() ");
+						contractInstance.doVoting(
+							_partyId, 
+							{from: global.web3.eth.accounts[0], gas : ethconfig.gas},
+							function(e,r){
+								if(e){
+									console.log("Common :: Method doVoting : Inside Callback, rejected, err ="+ e);
+									reject(e);
+								}else{
+									console.log("Common :: Method doVoting : Inside Callback, resolved, result ="+ r);
+									resolve(r);
+								}
+							}
+						);
 					}else{
-						console.log("doVoting, result :" +  result);
-						resolve(JSON.stringify(result));
+						console.log("Common :: Method doVoting :  contractInstance != undefined");
+						reject(" contractInstance != undefined");	
 					}
-                });
+				}catch(e){
+					console.log("Common :: Method doVoting : Inside catch, err ="+ e);
+					reject(e);
+				}		
+			}else{
+				console.log("Method doVoting : ");
+				reject("global.web3 is undefined");
 			}
 		});
 	},
-	
+
+	getPartyVoteCount : function(_partyId, _contractAddr){
+		return new Promise(function(resolve,reject){
+			console.log("Common :: Method getPartyVoteCount starts..");
+			if(global.web3 != 'undefined'){
+				console.log("Common :: Method getPartyVoteCount : Before calling createContractInstance() ");
+				var contractInstance = createContractInstance(_contractAddr);
+				try{
+					if(typeof contractInstance != 'undefined'){
+						console.log("Common :: Method getPartyVoteCount : After calling createContractInstance()");
+						console.log("Common :: Method getPartyVoteCount : Before calling contractInstance.addParty() ");
+						contractInstance.getTotalVoteCountOfParty(
+							_partyId, 
+							{from: global.web3.eth.accounts[0], gas : ethconfig.gas},
+							function(e,r){
+								if(e){
+									console.log("Common :: Method getPartyVoteCount : Inside Callback, rejected, err ="+ e);
+									reject(e);
+								}else{
+									console.log("Common :: Method getPartyVoteCount : Inside Callback, resolved, result ="+ r);
+									resolve(r);
+								}
+							}
+						);
+					}else{
+						console.log("Common :: Method getPartyVoteCounto :  contractInstance != undefined");
+						reject(" contractInstance != undefined");	
+					}
+				}catch(e){
+					console.log("Common :: Method getPartyVoteCount : Inside catch, err ="+ e);
+					reject(e);
+				}		
+			}else{
+				console.log("Method getPartyVoteCount : ");
+				reject("global.web3 is undefined");
+			}
+		});
+	},
 }
 
 function  createContractInstance(addr){
     //var     abiDefinitionString = document.getElementById('compiled_abidefinition').value;
     //var     abiDefinition = JSON.parse(abiDefinitionString);
-
+	console.log("Method createContractInstance() starts global = "+ global);
     // Instance uses the definition to create the function
-
-    var    contract = web3.eth.contract(ethconfig.abi);
-
-   // THIS IS AN EXAMPLE - How to create a deploy using the contract
-   // var instance = contract.new(constructor_params, {from:coinbase, gas:10000})
-   // Use the next for manual deployment using the data generated
-   // var contractData = contract.new.getData(constructor_params, {from:coinbase, gas:10000});
-    var    address = addr;
-    // Instance needs the address
-    var    instance = contract.at(address);
-
+	var instance;
+	if(typeof global.web3 != 'undefined' || typeof addr !='undefined'){
+        if(typeof global.web3.eth !='undefined'){
+			var    contract = global.web3.eth.contract(ethconfig.abi);
+			console.log("Method createContractInstance(): After loagin ethconfig.abi ");
+			// THIS IS AN EXAMPLE - How to create a deploy using the contract
+			// var instance = contract.new(constructor_params, {from:coinbase, gas:10000})
+			// Use the next for manual deployment using the data generated
+			// var contractData = contract.new.getData(constructor_params, {from:coinbase, gas:10000});
+			var    address = addr;
+			console.log("Method createContractInstance(): address = "+ address);
+			// Instance needs the address
+			var    instance = contract.at(address);
+			console.log("Method createContractInstance(): After creatinng instance of contract");
+		}else{
+			console.log("Method createContractInstance(): global.web3.eth is null or emtpy ");	
+		}
+	}else{
+		console.log("Method createContractInstance(): global.web3 || contract address  is null or emtpy ");	
+	}
+	console.log("Method createContractInstance()ends");
     return instance;
 }
 
+
+ 
 
 module.exports = services;

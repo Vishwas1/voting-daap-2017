@@ -8,7 +8,7 @@ contract Ballot {
 
     // Voter class
     struct Voter {
-        bool hasVoted;       
+        bool hasVoted;
         string adharNumber;
         bool isPresent;
     }
@@ -63,12 +63,19 @@ contract Ballot {
      *  2. _partyName : Party Name in string
      * Returns : True or False
      */
-    function addParty(bytes32 _partyName) public returns(bool){
-        uint partyid = gblpartyListArr.length +1;
+    // function addParty(bytes32 _partyName) public returns(bool){
+    //     uint partyid = gblpartyListArr.length +1;
+    //     gblpartyList[partyid].name = _partyName;
+    //     gblpartyList[partyid].voteCount = 0;
+    //     gblpartyListArr.push(partyid);
+    //     return true;
+    // }
+    function addParty(bytes32 _partyName) public{
+
+      uint partyid = gblpartyListArr.length +1;
         gblpartyList[partyid].name = _partyName;
         gblpartyList[partyid].voteCount = 0;
         gblpartyListArr.push(partyid);
-        return true;
     }
     
      
@@ -80,12 +87,13 @@ contract Ballot {
      *  1. _adharNumber : Adhar number of a voter
      * Returns : True or False
      */
-    function addVoter(string _adharNumber) public returns(bool){
+    function addVoter(string _adharNumber) public{
         gbl_voterList[_adharNumber].hasVoted = false;
         gbl_voterList[_adharNumber].adharNumber = _adharNumber;
         gbl_voterList[_adharNumber].isPresent = true;
-        return true;
+        //return true;
     }
+    
     
     /*** 
      * Function Name : ValidateBallotVoter() 

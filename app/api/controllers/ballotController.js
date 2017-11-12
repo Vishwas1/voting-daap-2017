@@ -69,7 +69,7 @@ var ballotController = {
             let body = req.body;
             let partyName =  "TestParty";//body.partyname;
             console.log('ballotController : partyName ='+ partyName);
-            let contractAddr =  "0xbce3ea5e023add540b9376c4588821a15d60059a";//body.contractaddr;
+            let contractAddr =  "0x9ba2fee58228ec40de2cd4534ce5e6ffca89674a";//body.contractaddr;
             console.log('ballotController : contractAddr ='+ contractAddr);
             if(partyName != "" && contractAddr != "" && typeof partyName != 'undefined' && typeof contractAddr != 'undefined')
             {   
@@ -112,53 +112,15 @@ var ballotController = {
         {
             let body = req.body;
             let adharNumber =  "1234-1234";//body.adharNumber;
-            console.log('ballotController : partyName ='+ partyName);
+            console.log('ballotController : adharNumber ='+ adharNumber);
+            let contractAddr =  "0x9ba2fee58228ec40de2cd4534ce5e6ffca89674a";//body.contractaddr;
+            console.log('ballotController : contractAddr ='+ contractAddr);
             if(adharNumber != "" && typeof adharNumber != 'undefined')
             {   
                 if(global.dbConnection)
                 {
                     console.log('ballotController : Before calling service.newContract services = '+ services);
-                    services.addVoter(adharNumber)
-                    .then(function(result){
-                        console.log('ballotController : addVoter Pass '); 
-                        return res.json({status: 'Success' , tran : result});  
-                    }).catch(function(err){
-                        console.log('ballotController : addVoter Fails ');
-                        return res.json({status: 'Error' , message : err});
-                    });
-                }
-                else
-                {
-                    console.log('ballotController : Database connection failed');
-                    return res.json({status: 'Error' , message : 'Database connection failed'});
-                }
-            }
-            else
-            {
-                console.log('ballotController : UserName or Password can not be null or empty');
-                return res.json({status: 'Error',  message : 'UserName or Password can not be null or empty'});
-            }
-        }
-        catch(err)
-        {
-            throw err;
-        }
-        console.log('ballotController : addVoter method ends');
-    },
-
-    validateVoter : function(req,res){
-        console.log('ballotController : addVoter method begins');
-        try
-        {
-            let body = req.body;
-            let adharNumber =  "1234-1234";//body.adharNumber;
-            console.log('ballotController : partyName ='+ partyName);
-            if(adharNumber != "" && typeof adharNumber != 'undefined')
-            {   
-                if(global.dbConnection)
-                {
-                    console.log('ballotController : Before calling service.newContract services = '+ services);
-                    services.validateVoter()
+                    services.addVoter(adharNumber,contractAddr)
                     .then(function(result){
                         console.log('ballotController : addVoter Pass '); 
                         return res.json({status: 'Success' , tran : result});  
@@ -190,22 +152,27 @@ var ballotController = {
         console.log('ballotController : getListOfParties method begins');
         try
         {
-            if(global.dbConnection)
-            {
-                console.log('ballotController : Before calling service.getListOfParties services = '+ services);
-                services.getListOfParties()
-                .then(function(result){
-                    console.log('ballotController : getListOfParties Pass '); 
-                    return res.json({status: 'Success' , tran : result});  
-                }).catch(function(err){
-                    console.log('ballotController : getListOfParties Fails ');
-                    return res.json({status: 'Error' , message : err});
-                });
-            }
-            else
-            {
-                console.log('ballotController : Database connection failed');
-                return res.json({status: 'Error' , message : 'Database connection failed'});
+            let contractAddr =  "0x9ba2fee58228ec40de2cd4534ce5e6ffca89674a";//body.contractaddr;
+            console.log('ballotController : contractAddr ='+ contractAddr);
+            if(contractAddr != "" && typeof contractAddr != 'undefined'){  
+                if(global.dbConnection){
+                    console.log('ballotController : Before calling service.getListOfParties services = '+ services);
+                    services.getListOfParties(contractAddr)
+                    .then(function(result){
+                        console.log('ballotController : getListOfParties Pass '); 
+                        return res.json({status: 'Success' , tran : result});  
+                    }).catch(function(err){
+                        console.log('ballotController : getListOfParties Fails ');
+                        return res.json({status: 'Error' , message : err});
+                    });
+                }
+                else{
+                    console.log('ballotController : Database connection failed');
+                    return res.json({status: 'Error' , message : 'Database connection failed'});
+                }
+            }else{
+                console.log('ballotController : UserName or Password can not be null or empty');
+                return res.json({status: 'Error',  message : 'contractAddr is null or empty'});
             }
         }
         catch(err)
@@ -215,19 +182,63 @@ var ballotController = {
         console.log('ballotController : getListOfParties method ends');
     },
 
+    validateVoter : function(req,res){
+        console.log('ballotController : validateVoter method begins');
+        try
+        {
+            let body = req.body;
+            let adharNumber =  "1234-12347";//body.adharNumber;
+            console.log('ballotController : adharNumber ='+ adharNumber);
+            let contractAddr =  "0x9ba2fee58228ec40de2cd4534ce5e6ffca89674a";//body.contractaddr;
+            console.log('ballotController : contractAddr ='+ contractAddr);
+            if(adharNumber != "" && typeof adharNumber != 'undefined')
+            {   
+                if(global.dbConnection)
+                {
+                    console.log('ballotController : Before calling service.newContract services = '+ services);
+                    services.validateVoter(adharNumber,contractAddr)
+                    .then(function(result){
+                        console.log('ballotController : validateVoter Pass '); 
+                        return res.json({status: 'Success' , tran : result});  
+                    }).catch(function(err){
+                        console.log('ballotController : validateVoter Fails ');
+                        return res.json({status: 'Error' , message : err});
+                    });
+                }
+                else
+                {
+                    console.log('ballotController : Database connection failed');
+                    return res.json({status: 'Error' , message : 'Database connection failed'});
+                }
+            }
+            else
+            {
+                console.log('ballotController : UserName or Password can not be null or empty');
+                return res.json({status: 'Error',  message : 'UserName or Password can not be null or empty'});
+            }
+        }
+        catch(err)
+        {
+            throw err;
+        }
+        console.log('ballotController : validateVoter method ends');
+    },
+
     doVoting : function(req,res){
         console.log('ballotController : partyId method begins');
         try
         {
             let body = req.body;
-            let partyId =  "1234-1234";//body.adharNumber;
-            console.log('ballotController : partyName ='+ partyName);
+            let partyId =  "1";//body.adharNumber;
+            console.log('ballotController : partyId ='+ partyId);
+            let contractAddr =  "0x9ba2fee58228ec40de2cd4534ce5e6ffca89674a";//body.contractaddr;
+            console.log('ballotController : contractAddr ='+ contractAddr);
             if(partyId != "" && typeof partyId != 'undefined')
             {   
                 if(global.dbConnection)
                 {
-                    console.log('ballotController : Before calling service.newContract services = '+ services);
-                    services.doVoting(partyId)
+                    console.log('ballotController : Before calling doVoting services = '+ services);
+                    services.doVoting(partyId,contractAddr)
                     .then(function(result){
                         console.log('ballotController : partyId Pass '); 
                         return res.json({status: 'Success' , tran : result});  
@@ -254,6 +265,44 @@ var ballotController = {
         }
         console.log('ballotController : addVoter method ends');
     },
+
+    getPartyVoteCount : function(req,res){
+        console.log('ballotController : getPartyVoteCount method begins');
+        try
+        {
+            let contractAddr =  "0x9ba2fee58228ec40de2cd4534ce5e6ffca89674a";//body.contractaddr;
+            console.log('ballotController : contractAddr ='+ contractAddr);
+            let partyId =  "1";//body.adharNumber;
+            console.log('ballotController : partyId ='+ partyId);
+            if(contractAddr != "" && typeof contractAddr != 'undefined'){  
+                if(global.dbConnection){
+                    console.log('ballotController : Before calling getPartyVoteCount services = '+ services);
+                    services.getPartyVoteCount(partyId,contractAddr)
+                    .then(function(result){
+                        console.log('ballotController : getPartyVoteCount Pass '); 
+                        return res.json({status: 'Success' , tran : result});  
+                    }).catch(function(err){
+                        console.log('ballotController : getPartyVoteCount Fails ');
+                        return res.json({status: 'Error' , message : err});
+                    });
+                }
+                else{
+                    console.log('ballotController : Database connection failed');
+                    return res.json({status: 'Error' , message : 'Database connection failed'});
+                }
+            }else{
+                console.log('ballotController : UserName or Password can not be null or empty');
+                return res.json({status: 'Error',  message : 'contractAddr is null or empty'});
+            }
+        }
+        catch(err)
+        {
+            throw err;
+        }
+        console.log('ballotController : getPartyVoteCount method ends');
+    },
+
+
 }
 
 module.exports = ballotController;
