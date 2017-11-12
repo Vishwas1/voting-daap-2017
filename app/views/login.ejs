@@ -20,9 +20,12 @@
                 <p>Login in. To see it in action.</p>
                 <form class="m-t" role="form" action="#">
                     <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Aadhar number" required="">
+                        <input type="text" class="form-control adhaar" placeholder="Aadhar number" required="">
                     </div>
-                    <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+                    <div class="form-group">
+                        <input type="Password" class="form-control password" placeholder="Password" required="">
+                    </div>
+                    <button type="button" class="btn btn-primary block full-width m-b login">Login</button>
                     <p class="text-muted text-center"><small>Do not have an account?</small></p>
                     <a class="btn btn-sm btn-white btn-block" href="/register">Create an account</a>
                 </form>
@@ -47,4 +50,52 @@
         <script src="js/bootstrap.min.js"></script>
     
     </body>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(document).on('click', '.login', function (e) {
+                e.preventDefault();
+                var data = {
+                    password: $('.password').val(),
+                    adhaar: $('.adhaar').val(),
+                }
+                console.log(data)
+                // $.ajax({
+                //     method: "POST",
+                //     url: "/api/admin-login",
+                //     data: data,
+                //     success: function (data) {
+                //             if(data.status==1)
+                //                 alert(data.message)
+                //             else
+                //                 alert(data.message)
+                //     }
+                // });
+            });
+
+            $('.adhaar').on('keyup',function(e){
+                let adhaar = $(this).val()
+                if(adhaar.lenth > 4)
+                {
+                    $.ajax({
+                        method: "POST",
+                        url: "/api/validate-adhar",
+                        data: data,
+                        success: function (data) {
+                                if(data.status==1){
+                                    $('.login').prop('disabled', false)
+                                    alert(data.message)
+
+                                }
+                                else{
+                                    $(".adhaar").addClass("boder-red")
+                                    $('.login').prop('disabled', true)
+                                    alert(data.message)
+                                }
+                        }
+                    });
+                }
+            })
+        })
+    </script>
 </html>

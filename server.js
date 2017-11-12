@@ -48,7 +48,7 @@ app.set('view engine','ejs');
 //Routes configuration ...
 console.log("1");
 app.get('/',function(req,res){res.render('login',{title:'E-Voting | Login'});});
-// app.get('/login',function(req,res){res.render('login',{title:'Login Page', nav : nav, appName:  config.appName });});
+app.get('/login',function(req,res){res.render('login',{title:'E-Voting | Login'});});
 console.log("2");
 app.get('/register',function(req,res){res.render('register',{title:'E-Voting | Register'});});
 console.log("3");

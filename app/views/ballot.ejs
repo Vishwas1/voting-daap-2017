@@ -127,7 +127,7 @@
                                             </input>
                                             </label>
                                             <label class="col-sm-3 ">
-                                            <input type="text" name="" placeholder="Nominee Name" id="" class="tagsinput-typeahead form-control">
+                                            <input type="text" name="" placeholder="Nominee Name" id="" class="tagsinput-typeahead form-control nominee">
                                             </label>
                                             <div class="col-sm-3">
                                                 <button class="btn btn-primary createBallot" type="button">
@@ -178,71 +178,22 @@
                                 </span>
                                 </button>
                                 <h4 class="modal-title" id="myModalLabel">
-                                    Ballot
+                                    Voter List
                                 </h4>
                             </div>
                             <form class="form-horizontal" method="POST">
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">
-                                        Start Time
+                                        Adhaar Numbers
                                         </label>
                                         <div class="col-sm-10">
-                                            <input autocomplete="off" class="form-control" type="text"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">
-                                        End Time
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <input autocomplete="off" class="form-control" type="text"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">
-                                        File Upload
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                                <div class="form-control" data-trigger="fileinput">
-                                                    <i class="glyphicon glyphicon-file fileinput-exists">
-                                                    </i>
-                                                    <span class="fileinput-filename">
-                                                    </span>
-                                                </div>
-                                                <span class="input-group-addon btn btn-default btn-file">
-                                                <span class="fileinput-new">
-                                                Select file
-                                                </span>
-                                                <span class="fileinput-exists">
-                                                Change
-                                                </span>
-                                                <input name="..." type="file"/>
-                                                </span>
-                                                <a class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput" href="#">
-                                                Remove
-                                                </a>
-                                            </div>
+                                            <input autocomplete="off" class="tagsinput-typeahead form-control adhaar" type="text"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed">
                                     </div>
-                                    <!-- <div class="form-group"><label class="col-sm-2 control-label">Party Nominee</label>
-                                        <div class="col-sm-10">
-                                            <table class="table" id="Nominee">
-                                                <tr>
-                                                    <td><input type="text" class="form-control" autocomplete="off" ></td>
-                                                    <td>
-                                                        <div class="btn-group btn-group-sm" role="group" aria-label="">
-                                                            <button type="button" class="add btn btn-sm btn-info">+</button>
-                                                            <button type="button" class="delete btn btn-sm btn-danger">-</button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        </div> -->
+                                    
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="modal-footer">
@@ -250,7 +201,7 @@
                                     Close
                                     </button>
                                     <button class="btn btn-primary" id="save_changes" type="submit">
-                                    Save
+                                    Upload
                                     </button>
                                 </div>
                             </form>
@@ -273,7 +224,14 @@
         <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
         <script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
         <script>
+
+         function showList(ballotList){
+                // $('')
+         }
            $(document).ready(function () {
+
+                let ballotList = [];
+
                 $('.tagsinput-typeahead').tagsinput({});
                 $('input.date').datepicker({
                     format: "dd/mm/yyyy",
@@ -283,6 +241,8 @@
                     checkboxClass: 'icheckbox_square-green',
                     radioClass: 'iradio_square-green',
                 });
+
+
             });
             $(document).on('click', '.add', function () {
                 var parentId = $(this).closest('table').attr('id');
@@ -314,9 +274,11 @@
             $(document).on('click', '.createBallot', function (e) {
                 e.preventDefault();
                 var data = {
-                    ballot_name: $('.ballot-name').val(),
-                    start_date: $('.start-date').val(),
-                };
+                    contractName: $('.ballot-name').val(),
+                    startTime: $('.start-date').val(),
+                    partyArr: $('.nominee').val()
+                }
+                console.log(data)
                 $.ajax({
                     method: "POST",
                     url: "../api/create-ballot",

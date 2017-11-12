@@ -26,19 +26,25 @@
 
             </div>
             <h3>Register to E-Voting</h3>
-            <p>Create account to see it in action.</p>
+            <p>Create admin account to create ballot.</p>
             <form class="m-t" role="form" action="login.html">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Name" required="">
+                    <input type="text" class="form-control username" placeholder="Name" required="" >
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Aadhar number" required="">
+                    <input type="test" class="form-control adhaar" placeholder="Aadhar number" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control password" placeholder="Password" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control retype-check" placeholder="Retype Password" required="">
                 </div>
                
                 <div class="form-group">
                         <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> Agree the terms and policy </label></div>
                 </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
+                <button type="button" class="btn btn-primary block full-width m-b register"  >Register</button>
 
                 <p class="text-muted text-center"><small>Already have an account?</small></p>
                 <a class="btn btn-sm btn-white btn-block" href="/">Login</a>
@@ -71,8 +77,77 @@
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
             });
+
+            $('.retype-check').on('keyup',function(e){
+                let pass = $(".password").val()
+                let repass = $(this).val()
+
+                if(pass ==repass){
+                    $(".password").addClass("boder-green")
+                    $(".retype-check").addClass("boder-green")
+                    $('.register').prop('disabled', false)
+                }
+                else  {
+                    $(".password").addClass("boder-red")
+                    $(".retype-check").addClass("boder-red")
+                    $('.register').prop('disabled', true)
+
+                }
+                    
+                   // console.log($(this).val())
+            })
+
+            $('.adhaar').on('keyup',function(e){
+                let adhaar = $(this).val();
+
+                if(adhaar.lenth > 4)
+                {
+                    $.ajax({
+                        method: "POST",
+                        url: "/api/validate-adhar",
+                        data: data,
+                        success: function (data) {
+                                if(data.status==1){
+                                    alert(data.message)
+                                }
+                                else{
+                                    $(".adhaar").addClass("boder-red")
+                                    alert(data.message)   
+                                }
+                        }
+                    });
+                }
+            })
+
+            $(document).on('click', '.register', function (e) {
+                e.preventDefault();
+                var data = {
+                    username: $('.username').val(),
+                    password: $('.password').val(),
+                    adhaar: $('.adhaar').val(),
+                }
+                console.log(data)
+                // $.ajax({
+                //     method: "POST",
+                //     url: "/api/admin-create",
+                //     data: data,
+                //     success: function (data) {
+                //             if(data.status==1)
+                //                 alert(data.message)
+                //             else
+                //                 alert(data.message)
+                //     }
+                // });
+            });
         });
     </script>
 </body>
-
+<style type="text/css">
+    .boder-red{
+        border-color:red !important;
+    }
+    .boder-green{
+        border-color:#1ab394 !important;
+    }
+</style>
 </html>
