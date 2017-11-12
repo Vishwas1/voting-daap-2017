@@ -2,7 +2,7 @@
 var mongoose =  require('mongoose');
 var Schema = mongoose.Schema;
 
-
+//some comment
 //set up model for user and pass it to export
 module.exports = mongoose.model('Contract',new Schema({
 	adharnum : String,
