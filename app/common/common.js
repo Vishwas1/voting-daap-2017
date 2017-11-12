@@ -59,15 +59,17 @@ var services = {
 		var OueryObj = global.dbQueryObj.collection("Contract");
 		return new Promise(function(resolve,reject){
 			var query = { adharnum :  _adharnumber };
-			console.log('userController : query = '+ query);
+			console.log('getBallotList : query = '+ query);
 			//Check if UserName exists 
-			OueryObj.find(query, {id:false}).toArray(function(err,result){
-				if(err) throw err;
-				console.log('userController : result = '+ result.length);
-				if(result.length > 0)
+			OueryObj.find(query).toArray(function(err,result){
+				if(err){
+					console.log('getBallotList : result = '+ result.length);
+					reject('getBallotList failed, rejected , error  =  ');
+				}else{
+					console.log('getBallotList : result = '+ result.length);
 					resolve(result);
-				else
-					reject('Authentication failed. User not found');
+				}
+		
 			});
 		});
 	},
