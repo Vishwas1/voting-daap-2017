@@ -240,6 +240,8 @@
                                 success: function (res) {
                                         if(res.status == 'Success' && res.message != "" && res.message !='undefined'){
                                              $('.adhaarList').val('');
+                                             $('input').tagsinput('removeAll');
+                                             $('#modelWindow').modal('hide');
                                         }else{
                                             console.log("Contract creation fails.....");
                                         }

@@ -32,8 +32,11 @@ app.set('superSecret',config.secret);
 console.log('server : After setting secret key');
 
 //body-parser to get infos from POST URL parameters
-app.use(bodyparser.urlencoded({extended : false}));
+app.use(bodyparser.urlencoded({extended : true}));
 app.use(bodyparser.json());
+
+// app.use(bodyParser.json()) // handle json data
+// app.use(bodyParser.urlencoded({ extended: true })) 
 
 //morgan to log requests to the console
 app.use(morgan('dev'));
@@ -50,7 +53,7 @@ var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     if (req.method === "OPTIONS") 
-        res.send(200);
+        res.sendStatus(200)
     else 
         next();
 }

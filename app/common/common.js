@@ -87,29 +87,6 @@ var services = {
 	},
 
 	
-	// getBallotList_ : function(_adharnumber){
-	// 	var OueryObj = global.dbQueryObj.collection("Contract");
-	// 	return new Promise(function(resolve,reject){
-	// 		var query = { adharnum :  _adharnumber };
-	// 		console.log('Common :: getBallotList : query = '+ query);
-	// 		//Check if UserName exists 
-	// 		//{}, { _id: false, name: true, address: true }
-	// 		OueryObj.find(
-	// 			query, 
-	// 			{id: false,contractname: true, adharnum :true  }
-	// 		)
-	// 		.toArray(function(err,result){
-	// 			if(err){
-	// 				console.log('Common :: getBallotList : result = '+ result.length);
-	// 				reject(err);		
-	// 			}else{
-	// 				console.log('Common :: getBallotList : result = '+ result.length);
-	// 				resolve(result);		
-	// 			}
-	// 		});
-	// 	});
-	// },
-
 	insertIntoDb : function(objToInsert,model){
 		var OueryObj = global.dbQueryObj.collection(model);
 		return new Promise(function(resolve,reject){
@@ -314,7 +291,15 @@ var services = {
 									reject(e);
 								}else{
 									console.log("Common :: Method getListOfParties : Inside Callback, resolved, result ="+ r);
-									resolve(JSON.stringify(r));
+									var partyListArr = [];
+									if(typeof r != 'undefined'){
+										r.forEach(function(e) {
+											partyListArr.push(global.web3.toAscii(e));
+										}, this);
+										resolve(JSON.stringify(partyListArr));
+									}
+									
+									
 								}
 							}
 						);
