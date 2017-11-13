@@ -5,10 +5,11 @@
 
 <!-- toc -->
 
-- [Overview](#Overview)
-- [Problem](#Problem)
-- [Solution](#Solution)
-- [Technology](#Technology)
+- [Overview](#user-content-overview)
+- [Problem](#user-content-problem)
+- [Solution](#user-content-solution)
+- [Technology](#user-content-technology)
+- [System Architecture](#user-content-system-architecture)
 - [Contributing](#contributing)
 - [Author](#author)
 
@@ -21,15 +22,15 @@ We have come up with a public voting system where the voting could be transparen
 
 ## Technology
 
- So Currently our app is devided into five major component. 
+ So our E-voting  app is devided into five major component. 
 
- 1. Ethereum running on AWS Ec2 instance as pvt block.
+ 1. Ethereum running on AWS EC2 instance as pvt block.
  2. Nodejs Admin app Deployed over Heroku
  3. Vuejs Based Mobile app which can be installed as Android build
- 4. A mongo as a service as database
+ 4. A mongo as a service for database
  5. Adhaar Checksum for Adhaar validation (future use India-Stack)
 
- When an Admin registers we do two things 
+ When an Admin registers we do following things 
 
 
   1. Create an Account on Ethereum server 
