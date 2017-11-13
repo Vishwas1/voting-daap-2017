@@ -21,13 +21,13 @@ We have come up with a public voting system where the voting could be transparen
 
 ## Technology
 
- So Currently our app is devided into three parts 
+ So Currently our app is devided into five major component. 
 
- 1. Ethereum running on AWS Ec2 instance
+ 1. Ethereum running on AWS Ec2 instance as pvt block.
  2. Nodejs Admin app Deployed over Heroku
  3. Vuejs Based Mobile app which can be installed as Android build
  4. A mongo as a service as database
- 5. Adhaar Checksum for Adhaar validation 
+ 5. Adhaar Checksum for Adhaar validation (future use India-Stack)
 
  When an Admin registers we do two things 
 
@@ -48,6 +48,15 @@ We have come up with a public voting system where the voting could be transparen
    2. if it exist he is taken to the ballot where here does the voting 
  
 
+
+ 
+## System Architecture
+    Here goes the system architecture Image
+
+## Future Architecture Implementation . (Could be more scalable and basic security out of the box from aws) 
+
+![alt text](https://image.prntscr.com/image/qqqB-2yWTzimjR3PVoc8NQ.png "Future Architecture")
+
 ## API
  ```
 /**
@@ -65,11 +74,7 @@ We have come up with a public voting system where the voting could be transparen
  * http://localhost:3000/api/admin-login
  * 
  */
- ```
-## Future Architecture Implementation .
-
-![alt text](https://image.prntscr.com/image/qqqB-2yWTzimjR3PVoc8NQ.png "Future Architecture")
-
+```
 
 ## Problem
 
