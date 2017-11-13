@@ -186,6 +186,7 @@ var ballotController = {
         try
         {
             let contractAddr = req.body.contractaddr;
+            // console.log('ballotController : body ='+ req.body);
             console.log('ballotController : contractAddr ='+ contractAddr);
             if(contractAddr != "" && typeof contractAddr != 'undefined'){  
                 if(global.dbConnection){
