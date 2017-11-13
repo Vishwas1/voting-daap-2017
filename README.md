@@ -47,9 +47,6 @@ They can upload Voter List for the ballot.
 User open's Installs mobile app and use his Adhaar Id for login .
 
 ![alt text](https://image.prntscr.com/image/U2ZWTdQKQnCOpNEc6LTUIQ.png "Voter Login Screen")
-
-![alt text](https://image.prntscr.com/image/U2ZWTdQKQnCOpNEc6LTUIQ.png "Voter Login Screen")
-
 ![alt text](https://image.prntscr.com/image/wHZZP5axRxmYvtFvyvmCoQ.png "Voter Ballot 1")
 ![alt text](https://image.prntscr.com/image/ivIP-ulvQp6038TrxJUg9w.png "Voter Ballot 2")
 ![alt text](https://image.prntscr.com/image/-BHGUiR_RqihwXFhZdolQw.png "Voter Ballot 3")
