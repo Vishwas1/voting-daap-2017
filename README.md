@@ -10,6 +10,7 @@
 - [Solution](#user-content-solution)
 - [Technology](#user-content-technology)
 - [System Architecture](#user-content-system-architecture)
+- [Contract Code](#user-content-contract)
 - [Contributing](#contributing)
 - [Author](#author)
 
@@ -49,14 +50,16 @@ We have come up with a public voting system where the voting could be transparen
    2. if it exist he is taken to the ballot where here does the voting 
  
 
-
- 
 ## System Architecture
-    Here goes the system architecture Image
+
+![alt text](https://image.prntscr.com/image/wXd085nYTOqQAhsESZdM4w.png "System Architecture")
+
 
 ## Future Architecture Implementation . (Could be more scalable and basic security out of the box from aws) 
 
 ![alt text](https://image.prntscr.com/image/qqqB-2yWTzimjR3PVoc8NQ.png "Future Architecture")
+
+https://image.prntscr.com/image/wXd085nYTOqQAhsESZdM4w.png
 
 ## API
  ```
@@ -110,7 +113,10 @@ User open's Installs mobile app and use his Adhaar Id for login .
 
 
 
-
+## Contract
+  ```
+    https://github.com/Vishwas1/voting-daap-2017/blob/master/app/contract/Ballot.sol
+  ```
 ## Contributing
 
 1. Fork it!
