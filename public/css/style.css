@@ -8606,3 +8606,9 @@ body.md-skin {
 .copy-right{
   margin-top: 10px;
 } 
+.list-group-item>.openModalVoterList
+{
+  float: right;
+}
+
+.list-group-item { height: 50px; }
