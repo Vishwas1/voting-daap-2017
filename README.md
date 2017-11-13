@@ -116,7 +116,13 @@ User open's Installs mobile app and use his Adhaar Id for login .
 
 ## Author
 
-**StockScan** © [vikramIde](https://github.com/vikramIde), Released under the [MIT](./LICENSE) License.<br>
-Authored and maintained by vikramIde with help from contributors ([list](https://github.com/vikramIde/stock_scan1/graphs/contributors)).
+**E-Voting** © [Vishwas1](https://github.com/Vishwas1), Released under the [MIT](./LICENSE) License.<br>
+Authored and maintained by vikramIde with help from contributors ([list](Vishwas1/voting-daap-2017/graphs/contributors)).
+
+The Team 
 
 > [vick.Anand](https://facebook.com/vikramabhushan) · GitHub [@rapchik](https://github.com/vikramIde) · 
+
+> [Vishwas.Anand](https://facebook.com/vikramabhushan) · GitHub [@Vishwas1](https://github.com/Vishwas1) · 
+
+> [Harshitha.naidu](https://facebook.com/vikramabhushan) · GitHub [@rapchik](https://github.com/vikramIde) · 
