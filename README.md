@@ -125,4 +125,4 @@ The Team
 
 > [Vishwas.Anand](https://facebook.com/vikramabhushan) · GitHub [@Vishwas1](https://github.com/Vishwas1) · 
 
-> [Harshitha.naidu](https://facebook.com/vikramabhushan) · GitHub [@rapchik](https://github.com/vikramIde) · 
+> [Harshitha.naidu](https://www.facebook.com/harshitha.naidu61) · GitHub [@harshitha](https://github.com/harshithanaiduk) · 
