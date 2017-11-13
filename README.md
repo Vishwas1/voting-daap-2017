@@ -59,7 +59,6 @@ We have come up with a public voting system where the voting could be transparen
 
 ![alt text](https://image.prntscr.com/image/qqqB-2yWTzimjR3PVoc8NQ.png "Future Architecture")
 
-https://image.prntscr.com/image/wXd085nYTOqQAhsESZdM4w.png
 
 ## API
  ```
