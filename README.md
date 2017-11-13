@@ -55,8 +55,39 @@ User open's Installs mobile app and use his Adhaar Id for login .
 
 ## Technology
 
+ So Currently our app is devided into three parts 
+
+ 1. Ethereum running on AWS Ec2 instance
+ 2. Nodejs Admin app Deployed over Heroku
+ 3. Vuejs Based Mobile app which can be installed as Android build
+ 4. A mongo as a service as database
+
+ When an Admin registers we do two things 
+  a. Create an Account on Ethereum server 
+  b. When the response has come from geth we input the user in our Mongo Data base
+     parameters : {"acountAddr","userAdhaar","Username","passKey"}
+  c. Now when Admin has to login he has to enter Adhaar and passkey
+  d. When he is entered 
  
 
+## API
+ ```
+ 	/**
+ *  ------------Sample APIS-------------------
+ * http://localhost:3000/api/create-ballot
+ * http://localhost:3000/api/addparty
+ * http://localhost:3000/api/parties-list
+ * http://localhost:3000/api/add-voter
+ * http://localhost:3000/api/validate-voter
+ * http://localhost:3000/api/vote
+ * http://localhost:3000/api/vote-count
+ * http://localhost:3000/api/validate-adhar
+ * http://localhost:3000/api/ballot-list
+ * http://localhost:3000/api/admin-create
+ * http://localhost:3000/api/admin-login
+ * 
+ */
+ ```
 ## Contributing
 
 1. Fork it!
