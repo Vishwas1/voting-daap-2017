@@ -240,7 +240,7 @@
                 });
 
                 $('#addvoter').click(function(e){
-                    //debugger;
+                    ////debugger;
 
                     if(currentBallotAddr != "" && currentBallotAddr != 'undefined'){
                         let adharNumbers = $('.adhaarList').val();
@@ -323,7 +323,7 @@
                     partyArr: $('.nominee').val(),
                     adharnumber : sessionStorage.getItem('adminAdhar')
                 }
-                debugger;
+                ////debugger//debugger;
                 console.log(data)
                 $.ajax({
                     method: "POST",
@@ -331,7 +331,7 @@
                     data: data,
                     success: function (data) {
                         if(data.status == 'Success'){
-                            debugger;
+                            //debugger;
                             getContractList(sessionStorage.getItem('adminAdhar'));
                         }else{
                             console.log("Contract creationi fails.....");
@@ -341,7 +341,7 @@
             });
             //var ballotList = '[{"_id":"5a085561e642d40f10649562","adharnum":"0987","contractaddr":"0x97bd4a0bc97b9fe327cf18b63e7c91625df65a9f","contractname":"Panchyat Election","contractStartTime":"","contractEndTime":""},{"_id":"5a085a8bf1147f28a84bba60","adharnum":"0987","contractaddr":"0x9e34cb7317b08fcdff8873d17b0e6d2316cc9df5","contractname":"Election 001","contractStartTime":"","contractEndTime":""},{"_id":"5a085ab2f1147f28a84bba61","adharnum":"0987","contractaddr":"0x1d0bab544637a3b0f9f9f2138dd25686cc73f854","contractname":"Election 001","contractStartTime":"","contractEndTime":""},{"_id":"5a085b0df1147f28a84bba62","adharnum":"0987","contractaddr":"0x42b1ebf6c1f0eaaa2adcf9051c62fe37f51b5b73","contractname":"Test","contractStartTime":"","contractEndTime":""},{"_id":"5a085b38f1147f28a84bba63","adharnum":"0987","contractaddr":"0x69eb0dc06b49ebcfd843fa79951a29f0eb3974b5","contractname":"Election 001","contractStartTime":"","contractEndTime":""},{"_id":"5a085b6bf1147f28a84bba64","adharnum":"0987","contractaddr":"0xf9ca53ee60c46715f5863ae47d00275bcc5aff95","contractname":"Test Elect001","contractStartTime":"","contractEndTime":""}]'
             function getContractList(adhaar){
-                //debugger;
+                ////debugger;
                 let data = {
                     adharnumber : adhaar
                 }
@@ -364,7 +364,7 @@
             function listBallotUI(contractlist){
                 var ballotArray = JSON.parse(contractlist);
                 console.log(contractlist)
-                //debugger;
+                ////debugger;
                 let html = '';
                 ballotArray.forEach(function(ballot){
 

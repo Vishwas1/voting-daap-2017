@@ -32,7 +32,7 @@ var userController = {
 					{
 						//var query = { username :  usernameReq };
 						var query = { adharnum :  adharnumber };
-						var model = "User1";
+						var model = "User_1";
 						var publickey = "";
 						services.checkExists(query,model)
 						.then(function(result){
@@ -163,7 +163,8 @@ var userController = {
 		console.log('getBallotList : authenticate method starts');
 		var adharnumberReq = "";
 		var body = req.body;
-		adharnumberReq =  body.adharnumber;		
+		adharnumberReq =  body.adharnumber;	
+		//adharnumberReq = "aaaa";	
 		console.log('getBallotList : adharnumberReq ='+ adharnumberReq);
 		if(adharnumberReq != "" && adharnumberReq != 'undefined')
 		{
@@ -190,12 +191,12 @@ var userController = {
 				}
 				else
 				{
-					console.log('authController : global.db is undefined');		
+					console.log('userController : global.db is undefined');		
 				}
 			}
 			else
 			{
-				console.log('authController : Database connection failed');
+				console.log('userController : Database connection failed');
 			}	
 		}
 		else
@@ -203,7 +204,7 @@ var userController = {
 			console.log('userController : UserName or Password can not be null or empty');
 			return res.json({status: 'Error',  message : 'UserName or Password can not be null or empty'});
 		}
-		console.log('authController : authenticate method ends');
+		console.log('userController : getBallotList method ends');
 	},
 }
 

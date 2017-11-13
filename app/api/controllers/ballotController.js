@@ -14,10 +14,10 @@ var ballotController = {
         {
             var body = req.body;
             var adharnumReq =  body.adharnumber;
-            //adharnumReq = '0987';
+           // adharnumReq = 'aaaa';
             console.log('ballotController : adharnumReq ='+ adharnumReq);
             var contractNameReq = body.contractName;
-            //contractNameReq = 'Contract001';
+           // contractNameReq = 'Contract001';
             console.log('ballotController : contractNameReq ='+ contractNameReq);
             var startTimeReq = body.startTime;
             startTimeReq = 1
@@ -30,28 +30,38 @@ var ballotController = {
             {   
                 if(global.dbConnection)
                 {
-                    var model = "Contract";
+                    var model = "Contract_1";
+                    startTimeReq = 1;
                     console.log('ballotController : Before calling service.newContract services = '+ services);
-                    services.unlockAccount()
-                    .then(function(res){
-                        console.log('ballotController : Promise resolved : unlockAccount Success '); 
-                        startTimeReq = 1;
-                        services.newContract(contractNameReq,startTimeReq,partyArrReq)
-                    },function(e){
-                        console.log('ballotController :  Promise rejected : unlockAccount, error  =', e);
-                        return res.json({status: 'Error' , message : e});
-                    })
+                    // services.unlockAccount()
+                    // .then(function(res){
+                    //     console.log('ballotController : Promise resolved : unlockAccount Success '); 
+                    //     startTimeReq = 1;
+                    //     services.newContract(contractNameReq,startTimeReq,partyArrReq);
+                    // },function(e){
+                    //     console.log('ballotController :  Promise rejected : unlockAccount, error  =', e);
+                    //     return res.json({status: 'Error' , message : e});
+                    // })
+                    services.newContract(contractNameReq,startTimeReq,partyArrReq)
                     .then(function(result){
                         console.log('ballotController : Promise resolved : newContract , contract address = ' + result); 
-                        var contractVar = new Contract({
-                            adharnum : adharnumReq,
-                            contractaddr : result,
-                            contractname : contractNameReq,
-                            contractStartTime : "",
-                            contractEndTime : ""
-                            });
-
-                        services.insertIntoDb(contractVar,model);
+                        if(typeof result != 'undefined'){
+                            var contractVar = new Contract({
+                                adharnum : adharnumReq,
+                                contractaddr : result,
+                                contractname : contractNameReq,
+                                contractStartTime : "",
+                                contractEndTime : ""
+                                });
+    
+    
+                            console.log(contractVar);
+                            services.insertIntoDb(contractVar,model);
+                        }else{
+                            console.log('result is undefined');
+                        }
+                       
+                        
                     }, function(err){
                         console.log('ballotController : Promise rejected : newContract  ');
                         return res.json({status: 'Error' , message : err});
@@ -88,6 +98,98 @@ var ballotController = {
         }
         console.log('ballotController : create method ends');
     },
+
+
+    /*create_ : function(req,res){
+        console.log('ballotController : create method begins');
+        try
+        {
+            var body = req.body;
+            var adharnumReq =  body.adharnumber;
+            adharnumReq = 'aaaa';
+            console.log('ballotController : adharnumReq ='+ adharnumReq);
+            var contractNameReq = body.contractName;
+            contractNameReq = 'Contract001';
+            console.log('ballotController : contractNameReq ='+ contractNameReq);
+            var startTimeReq = body.startTime;
+            startTimeReq = 1
+            console.log('ballotController : startTimeReq ='+ startTimeReq);
+            var partyArrStr = body.partyArr;
+            partyArrStr = "BJP,CONG,SORE";
+            var partyArrReq = partyArrStr.split(',');
+            console.log('ballotController : partyArrReq.length ='+ partyArrReq.length);
+            if(contractNameReq != "" && startTimeReq != "" && typeof contractNameReq != 'undefined' && typeof startTimeReq != 'undefined')
+            {   
+                if(global.dbConnection)
+                {
+                    var model = "Contract_1";
+                    console.log('ballotController : Before calling service.newContract services = '+ services);
+                    services.unlockAccount()
+                    .then(function(res){
+                        console.log('ballotController : Promise resolved : unlockAccount Success '); 
+                        startTimeReq = 1;
+                        services.newContract(contractNameReq,startTimeReq,partyArrReq);
+                    },function(e){
+                        console.log('ballotController :  Promise rejected : unlockAccount, error  =', e);
+                        return res.json({status: 'Error' , message : e});
+                    })
+                    .then(function(result){
+                        console.log('ballotController : Promise resolved : newContract , contract address = ' + result); 
+
+                        setTimeout(function() {
+                            if(result != 'undefined'){
+                                var contractVar = new Contract({
+                                    adharnum : adharnumReq,
+                                    contractaddr : result,
+                                    contractname : contractNameReq,
+                                    contractStartTime : "",
+                                    contractEndTime : ""
+                                    });
+        
+        
+                                console.log(contractVar);
+                                services.insertIntoDb(contractVar,model);
+                            }else{
+                                console.log('result is undefined');
+                            }
+                           
+                        }, 5000);
+                    }, function(err){
+                        console.log('ballotController : Promise rejected : newContract  ');
+                        return res.json({status: 'Error' , message : err});
+                    })
+                    .then(function(result){
+                        //If not then insert - Resolve promise
+                        console.log('ballotController : Promise resolved : insertIntoDb  success'); 
+                        return res.json({status: 'Success' , address : result});  
+                    }, function(err){
+                        console.log('ballotController : Promise rejected : insertIntoDb  err = ', err); 
+                        return res.json({status: 'Error' , message : err});
+                    })
+                    .catch(function(err){
+                        //Alerady exists in the db - Reject Promise - respond saying that user name already exists
+                        console.log('ballotController : unlockAccount fail ');
+                        return res.json({status: 'Error' , message : err});
+                    });
+                }
+                else
+                {
+                    console.log('ballotController : Database connection failed');
+                    return res.json({status: 'Error' , message : 'Database connection failed'});
+                }
+            }
+            else
+            {
+                console.log('ballotController : UserName or Password can not be null or empty');
+                return res.json({status: 'Error',  message : 'UserName or Password can not be null or empty'});
+            }
+        }
+        catch(err)
+        {
+            throw err;
+        }
+        console.log('ballotController : create method ends');
+    },*/
 
     addParty : function(req,res){
         console.log('ballotController : create method begins');

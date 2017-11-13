@@ -26,48 +26,60 @@ var services = {
 	},
 
 	checkIfUserExists : function(_adharnumber){
-		var OueryObj = global.dbQueryObj.collection("User1");
+		var OueryObj = global.dbQueryObj.collection("User_1");
 		return new Promise(function(resolve,reject){
+
+			console.log('checkIfUserExists starts .......');
 			var query = { adharnum :  _adharnumber };
 			console.log('userController : query = '+ query);
-			//Check if UserName exists 
-			// OueryObj.find({}).and([
-			// 	{ adharnum: _adharnumber }
-			// ]).toArray(function(err,result){
+			
+			OueryObj.find({adharnum : _adharnumber }).toArray(function(err, results){
+				console.log('Return from Mongo db query ' + results); // output all records
+				if(results!='undefined' && results.length > 0){
+					console.log('Return from Mongo db query , results.length = ' + results.length); 
+					console.log('Return from Mongo db query , results = ' + results); 
+					resolve(results[0]);
+				}else{
+					console.log('Authentication failed. User not found');
+					reject('Authentication failed. User not found');
+				}
+			});
+
+
+			// OueryObj.find({adharnum : _adharnumber })
+			// //OueryObj.find(query)
+			// .toArray(function(err,result){
 			// 	if(err) throw err;
+			// 	console.log('userController : result = '+ result[0].username);
+			// 	console.log('userController : result = '+ result[0].password);
 			// 	console.log('userController : result = '+ result);
 			// 	if(result.length > 0)
 			// 		resolve(result[0]);
 			// 	else
 			// 		reject('Authentication failed. User not found');
-			// });;
-
-			OueryObj.find(query)
-			.toArray(function(err,result){
-				if(err) throw err;
-				console.log('userController : result = '+ result[0].username);
-				console.log('userController : result = '+ result[0].password);
-				console.log('userController : result = '+ result);
-				if(result.length > 0)
-					resolve(result[0]);
-				else
-					reject('Authentication failed. User not found');
-			});
+			// });
 		});
 	},
 	getBallotList : function(_adharnumber){
-		var OueryObj = global.dbQueryObj.collection("Contract");
+		var OueryObj = global.dbQueryObj.collection("Contract_1");
 		return new Promise(function(resolve,reject){
 			var query = { adharnum :  _adharnumber };
 			console.log('getBallotList : query = '+ query);
 			//Check if UserName exists 
-			OueryObj.find(query).toArray(function(err,result){
+			OueryObj.find({ adharnum :  _adharnumber }).toArray(function(err,result){
 				if(err){
 					console.log('getBallotList : result = '+ result.length);
 					reject('getBallotList failed, rejected , error  =  ');
 				}else{
-					console.log('getBallotList : result = '+ result.length);
-					resolve(result);
+					if(result!= 'undefined' && result!="" && result!= null){
+						result.forEach(function(element) {
+							console.log('getBallotList : resolved, element.contractaddr = '+ element.contractaddr);
+							console.log('getBallotList : resolved, element.contractname = '+ element.contractname);
+						}, this);
+						resolve(result);
+					}
+				
+					
 				}
 		
 			});
@@ -75,28 +87,28 @@ var services = {
 	},
 
 	
-	getBallotList_ : function(_adharnumber){
-		var OueryObj = global.dbQueryObj.collection("Contract");
-		return new Promise(function(resolve,reject){
-			var query = { adharnum :  _adharnumber };
-			console.log('Common :: getBallotList : query = '+ query);
-			//Check if UserName exists 
-			//{}, { _id: false, name: true, address: true }
-			OueryObj.find(
-				query, 
-				{id: false,contractname: true, adharnum :true  }
-			)
-			.toArray(function(err,result){
-				if(err){
-					console.log('Common :: getBallotList : result = '+ result.length);
-					reject(err);		
-				}else{
-					console.log('Common :: getBallotList : result = '+ result.length);
-					resolve(result);		
-				}
-			});
-		});
-	},
+	// getBallotList_ : function(_adharnumber){
+	// 	var OueryObj = global.dbQueryObj.collection("Contract");
+	// 	return new Promise(function(resolve,reject){
+	// 		var query = { adharnum :  _adharnumber };
+	// 		console.log('Common :: getBallotList : query = '+ query);
+	// 		//Check if UserName exists 
+	// 		//{}, { _id: false, name: true, address: true }
+	// 		OueryObj.find(
+	// 			query, 
+	// 			{id: false,contractname: true, adharnum :true  }
+	// 		)
+	// 		.toArray(function(err,result){
+	// 			if(err){
+	// 				console.log('Common :: getBallotList : result = '+ result.length);
+	// 				reject(err);		
+	// 			}else{
+	// 				console.log('Common :: getBallotList : result = '+ result.length);
+	// 				resolve(result);		
+	// 			}
+	// 		});
+	// 	});
+	// },
 
 	insertIntoDb : function(objToInsert,model){
 		var OueryObj = global.dbQueryObj.collection(model);
@@ -135,6 +147,8 @@ var services = {
 				console.log("web3 is not undefined, web3.eth.accounts[0] = "+ global.web3.eth.accounts[0]);
 				var browser_ballot_sol_ballotContract = global.web3.eth.contract(ethconfig.abi);
 				console.log("After loading the abi, After creating ballot object");
+				
+
 				var browser_ballot_sol_ballot = browser_ballot_sol_ballotContract.new(
 					_contractName,
 					_endTime,
@@ -150,7 +164,9 @@ var services = {
 					}else{
 						if (typeof contract.address != 'undefined') {
 							console.log('Contract mined! address: ' + contract.address + ' transactionHash: ' + contract.transactionHash);
-							resolve(contract.address);
+							//setTimeout(function() {
+								resolve(contract.address);
+							//}, 5000);
 					   }
 					}
 				});
