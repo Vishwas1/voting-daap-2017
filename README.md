@@ -66,11 +66,10 @@ We have come up with a public voting system where the voting could be transparen
  * 
  */
  ```
+## Future Architecture Implementation .
 
+![alt text](https://image.prntscr.com/image/qqqB-2yWTzimjR3PVoc8NQ.png "Future Architecture")
 
-## Future Architecture Implementation 
-
-	![alt text](https://image.prntscr.com/image/qqqB-2yWTzimjR3PVoc8NQ.png "Future Architecture")
 
 ## Problem
 
