@@ -34,90 +34,59 @@
                         <li class="nav-header">
                             <div class="dropdown profile-element">
                                 <span>
-                                <img alt="image" class="img-circle" src="img/profile_small.jpg"/>
+                                    <img alt="image" class="img-circle" src="img/profile_small.jpg" />
                                 </span>
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <span class="clear">
-                                <span class="block m-t-xs">
-                                <strong class="font-bold">
-                                David Williams
-                                </strong>
-                                </span>
-                                <span class="text-muted text-xs block">
-                                Admin
-                                </span>
-                                </span>
-                                </a>
-                            </div>
-                            <div class="logo-element">
-                                IN+
-                            </div>
-                        </li>
-                        <li class="active">
-                            <a href="#">
-                            <i class="fa fa-edit">
-                            </i>
-                            <span class="nav-label">
-                            Menu
-                            </span>
-                            <span class="fa arrow">
-                            </span>
-                            </a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/view-list">
-                                    View List
-                                    </a>
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                    <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
+                                        </span> <span class="text-muted text-xs block">Admin </span> </span> </a>
+                                        
+                                    </div>
+                                    <div class="logo-element">
+                                        IN+
+                                    </div>
                                 </li>
+                                
                                 <li class="active">
-                                    <a href="/ballot">
-                                    Create Ballot
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/view-votes">
-                                    View Votes
-                                    </a>
+                                    <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Menu</span><span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li><a href="/view-list">View List</a></li>
+                                        <li class="active"><a href="/ballot">Create Ballot</a></li>
+                                        <li  ><a href="/view-votes">View Votes</a></li>
+                                    </ul>
                                 </li>
                             </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <div class="gray-bg" id="page-wrapper">
-                <div class="row border-bottom"></div>
-                <div class="row wrapper border-bottom white-bg page-heading">
-                    <div class="col-lg-10">
-                        <h2>
-                            Create Ballot
-                        </h2>
-                        <ol class="breadcrumb">
-                            <li>
-                                <a href="index.html">
-                                Home
-                                </a>
-                            </li>
-                            <li class="active">
-                                <strong>
-                                Create Ballot
-                                </strong>
-                            </li>
-                        </ol>
-                    </div>
-                    <div class="col-lg-2"></div>
-                </div>
-                <div class="wrapper wrapper-content animated fadeInRight">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <h5>
-                                        Create form
-                                    </h5>
-                                </div>
-                                <div class="ibox-content">
-                                    <form class="form-horizontal" method="POST" name="BallotForm">
-                                        <div class="form-group">
+                        </div>
+                    </nav>
+                    <div id="page-wrapper" class="gray-bg">
+                        <div class="row border-bottom">
+                        </div>
+                        <div class="row wrapper border-bottom white-bg page-heading">
+                            <div class="col-lg-10">
+                                <h2>View Votes</h2>
+                                <ol class="breadcrumb">
+                                    <li>
+                                        <a href="index.html">Home</a>
+                                    </li>
+                                    <li class="active">
+                                        <strong>View Votes</strong>
+                                    </li>
+                                </ol>
+                            </div>
+                            <div class="col-lg-2">
+                            </div>
+                        </div>
+                        <div class="wrapper wrapper-content animated fadeInRight">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-title">
+                                            <h5>See poll details</h5>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <form class="form-horizontal" method="POST" name="BallotForm">
+                                                
+                                                
+                                               <div class="form-group">
                                             <label class="col-sm-3 ">
                                             <input autocomplete="off" class="form-control ballot-name" name="ballot_name" placeholder="Election Name" type="text">
                                             </input>
@@ -135,74 +104,83 @@
                                                 </button>
                                             </div>
                                         </div>
-                                    </form>
-                                    <div class="hr-line-dashed">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <ul id="ballotList" class="list-group">
                                             
-                                        </ul>
+                                        </form>
+                                        
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="ibox float-e-margins">
+                                                    <div class="ibox-content">
+                                                        <ul class="list-group" id="ballotList" style="overflow: scroll;height: 300px;">
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
+                    <div class="footer">
+                        
+                        <ul class="list-inline pull-left copy-right">
+                            <li>Copyright</li>
+                            <li>&copy; 2017</li>
+                        </ul>
+                        <ul class="list-inline pull-right">
+                            <li>Powered By</li>
+                            <li><img src="img/vue.png" class="power-by-image"></li>
+                            <li><img src="img/nodejs.png" class="power-by-image" ></li>
+                            <li><img src="img/ethereum.png" class="power-by-image" ></li>
+                            <li><img src="img/AWS-Lambda.png" class="power-by-image" ></li>
+                        </ul>
+                    </div>
+                    
                 </div>
-                <div class="footer">
-                    <ul class="list-inline pull-left copy-right">
-                        <li>Copyright</li>
-                        <li>&copy; 2017</li>
-                    </ul>
-                    <ul class="list-inline pull-right">
-                        <li>Powered By</li>
-                        <li><img src="img/vue.png" class="powered-by-image"></li>
-                        <li><img src="img/nodejs.png" class="powered-by-image" ></li>
-                        <li><img src="img/ethereum.png" class="powered-by-image" ></li>
-                        <li><img src="img/AWS-Lambda.png" class="powered-by-image" ></li>
-                    </ul>
-                </div>
-                <div aria-labelledby="myModalLabel" id="modelWindow" class="modal fade" id="modal-form" role="dialog">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                                <span aria-hidden="true">
+            </div>
+            <div aria-labelledby="myModalLabel" id="modelWindow" class="modal fade" id="modal-form" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                            <span aria-hidden="true">
                                 ×
-                                </span>
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">
-                                    Voter List
-                                </h4>
-                            </div>
-                            <div class="form-horizontal">
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">
+                            </span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                            Voter List
+                            </h4>
+                        </div>
+                        <div class="form-horizontal">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">
                                         Adhaar Numbers
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <input autocomplete="off" class="tagsinput-typeahead form-control adhaarList" type="text"/>
-                                        </div>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input autocomplete="off" class="tagsinput-typeahead form-control adhaarList" type="text"/>
                                     </div>
-                                    <div class="hr-line-dashed">
-                                    </div>
-                                    
-                                    <div class="clearfix"></div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-default" id="closevoter" type="button">
-                                    Close
-                                    </button>
-                                    <button class="btn btn-primary" id="addvoter" type="button">
-                                    Add 
-                                    </button>
+                                <div class="hr-line-dashed">
                                 </div>
+                                
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-default" id="closevoter" type="button">
+                                Close
+                                </button>
+                                <button class="btn btn-primary" id="addvoter" type="button">
+                                Add
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         <!-- Mainly scripts -->
         <script src="js/jquery-3.1.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -218,6 +196,7 @@
         <script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
         <script>
          var currentBallotAddr ='';
+
            $(document).ready(function () {
 
                 let ballotList = [];
@@ -260,7 +239,7 @@
                                 data: data,
                                 success: function (res) {
                                         if(res.status == 'Success' && res.message != "" && res.message !='undefined'){
-                                            console.log(res.message);
+                                             $('.adhaarList').val('');
                                         }else{
                                             console.log("Contract creation fails.....");
                                         }
@@ -308,6 +287,7 @@
                 $clone.find('input:hidden').val('');
                 $tr.closest('table').append($clone);
             });
+
             $(document).on('click', '.delete', function () {
                 var parentId = $(this).closest('table').attr('id');
                 if ($('#' + parentId + '  tr').length > 1) {
@@ -315,6 +295,7 @@
                     $tr.remove();
                 }
             });
+
             $(document).on('click', '.createBallot', function (e) {
                 e.preventDefault();
                 var data = {
@@ -323,7 +304,6 @@
                     partyArr: $('.nominee').val(),
                     adharnumber : sessionStorage.getItem('adminAdhar')
                 }
-                ////debugger//debugger;
                 console.log(data)
                 $.ajax({
                     method: "POST",
@@ -331,8 +311,11 @@
                     data: data,
                     success: function (data) {
                         if(data.status == 'Success'){
-                            //debugger;
+
                             getContractList(sessionStorage.getItem('adminAdhar'));
+                            $('.ballot-name').val('')
+                            $('.start-date').val('')
+                            $('input').tagsinput('removeAll');
                         }else{
                             console.log("Contract creationi fails.....");
                         }
@@ -362,19 +345,37 @@
             }
 
             function listBallotUI(contractlist){
+
+                if(contractlist !='No Contacts found'){
+
                 var ballotArray = JSON.parse(contractlist);
                 console.log(contractlist)
                 ////debugger;
                 let html = '';
                 ballotArray.forEach(function(ballot){
 
-                    html +='<li class="list-group-item">'
-                    html +='<h4 class="list-group-item-heading">'+ballot.contractname+'</h4><span><button class="btn btn-info openModalVoterList" data-contractaddr="'+ballot.contractaddr+'">+</button></span>'
-                    html+='</li>'
+                    html += '<li class="list-group-item">';
+                    html  += '<button class="btn btn-info openModalVoterList" data-contractaddr="'+ballot.contractaddr+'">+</button>';
+                    html += ''+ballot.contractname+'</li>';
+
+                    // html +='<li class="list-group-item">';
+                    // html +='<h4 class="list-group-item-heading">'+ballot.contractname+'</h4><span><button class="btn btn-info openModalVoterList" data-contractaddr="'+ballot.contractaddr+'">+</button></span>';
+                    // html+='</li>';
                   
                 })
 
-                $('#ballotList').html(html)
+                    $('#ballotList').html(html);
+                }
+                else {
+                    console.log(contractlist);
+                }
+                
+            }
+
+            function resetInputText(ids)
+            {
+                var ids = ids.split(',')
+                console.log(ids)
             }
         </script>
     </body>
