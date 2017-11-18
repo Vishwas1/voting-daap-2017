@@ -23,8 +23,9 @@ dbConn.connection().then(function(res){
 });
 
 //connecting to ethereum
+console.log('server : Before connecting to ethereum');
 global.web3 =  web3Conn.web3Meth();
-
+console.log('server : After connecting to ethereum');
 
 //setting secret variable 
 console.log('server : Before setting secret key:' + config.secret);

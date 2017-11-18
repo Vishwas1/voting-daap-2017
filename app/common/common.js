@@ -20,7 +20,7 @@ var services = {
 			OueryObj.find(query).toArray(function(err,result){
 				if(err) throw err;
 				if(result.length == 0) resolve(result[0]);
-				else reject('Alerady Exists');
+				else reject('User already exists in Database');
 			});
 		});
 	},
@@ -33,7 +33,7 @@ var services = {
 			var query = { adharnum :  _adharnumber };
 			console.log('userController : query = '+ query);
 			
-			OueryObj.find({adharnum : _adharnumber }).toArray(function(err, results){
+			OueryObj.find(query).toArray(function(err, results){
 				console.log('Return from Mongo db query ' + results); // output all records
 				if(results!='undefined' && results.length > 0){
 					console.log('Return from Mongo db query , results.length = ' + results.length); 
@@ -63,25 +63,29 @@ var services = {
 	getBallotList : function(_adharnumber){
 		var OueryObj = global.dbQueryObj.collection("Contract_1");
 		return new Promise(function(resolve,reject){
-			var query = { adharnum :  _adharnumber };
-			console.log('getBallotList : query = '+ query);
+			var query = {};
+			if(typeof _adharnumber != 'undefined'){
+				console.log('getBallotList :_adharnumber != undefined');
+				query = { adharnum :  _adharnumber };
+			}else{
+				console.log('getBallotList :_adharnumber == undefined');
+				query = {};
+			}
 			//Check if UserName exists 
-			OueryObj.find({ adharnum :  _adharnumber }).toArray(function(err,result){
+			//OueryObj.find(query).toArray(function(err,result){
+			OueryObj.find(query).toArray(function(err,result){
 				if(err){
 					console.log('getBallotList : result = '+ result.length);
 					reject('getBallotList failed, rejected , error  =  ');
 				}else{
 					if(result!= 'undefined' && result!="" && result!= null){
 						result.forEach(function(element) {
-							console.log('getBallotList : resolved, element.contractaddr = '+ element.contractaddr);
-							console.log('getBallotList : resolved, element.contractname = '+ element.contractname);
+							//console.log('getBallotList : resolved, element.contractaddr = '+ element.contractaddr);
+							//console.log('getBallotList : resolved, element.contractname = '+ element.contractname);
 						}, this);
 						resolve(result);
 					}
-				
-					
 				}
-		
 			});
 		});
 	},
@@ -181,7 +185,7 @@ var services = {
 					web3.personal.newAccount(_password, function(error, result){
 						if(error){
 							console.log("Common :: Method createAccount  ,  error = ", error);
-							reject(error);
+							reject('');
 						}else{
 							console.log("Common :: Method createAccount  ,  result = ", result);
 							resolve(result);

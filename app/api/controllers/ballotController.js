@@ -38,9 +38,6 @@ var ballotController = {
                     //     console.log('ballotController : Promise resolved : unlockAccount Success '); 
                     //     startTimeReq = 1;
                     //     services.newContract(contractNameReq,startTimeReq,partyArrReq);
-                    // },function(e){
-                    //     console.log('ballotController :  Promise rejected : unlockAccount, error  =', e);
-                    //     return res.json({status: 'Error' , message : e});
                     // })
                     services.newContract(contractNameReq,startTimeReq,partyArrReq)
                     .then(function(result){
@@ -53,29 +50,17 @@ var ballotController = {
                                 contractStartTime : "",
                                 contractEndTime : ""
                                 });
-    
-    
                             console.log(contractVar);
-                            services.insertIntoDb(contractVar,model);
+                            return services.insertIntoDb(contractVar,model);
                         }else{
                             console.log('result is undefined');
-                        }
-                       
-                        
-                    }, function(err){
-                        console.log('ballotController : Promise rejected : newContract  ');
-                        return res.json({status: 'Error' , message : err});
+                        }                        
                     })
                     .then(function(result){
-                        //If not then insert - Resolve promise
                         console.log('ballotController : Promise resolved : insertIntoDb  success'); 
                         return res.json({status: 'Success' , address : result});  
-                    }, function(err){
-                        console.log('ballotController : Promise rejected : insertIntoDb  err = ', err); 
-                        return res.json({status: 'Error' , message : err});
                     })
                     .catch(function(err){
-                        //Alerady exists in the db - Reject Promise - respond saying that user name already exists
                         console.log('ballotController : unlockAccount fail ');
                         return res.json({status: 'Error' , message : err});
                     });
@@ -163,9 +148,6 @@ var ballotController = {
                         console.log('ballotController : addVoter Pass, trans = '+ result ); 
                         return res.json({status: 'Success' , message : 'Voters added'});  
                         
-                    }, function(e){
-                          console.log('ballotController : addVoter Fails, trans = '+ result ); 
-                          return res.json({status: 'Erro' , message : 'Failuer adding voters'});  
                     })
                     .catch(function(err){
                         console.log('ballotController : Inside catch addVoter Fails ');                                
@@ -231,11 +213,12 @@ var ballotController = {
         try
         {
             let body = req.body;
+            console.log('ballotController :  body ='+ body);
             let adharNumber =  body.adharNumber;
             console.log('ballotController : adharNumber ='+ adharNumber);
             let contractAddr =  body.contractaddr;
             console.log('ballotController : contractAddr ='+ contractAddr);
-            if(adharNumber != "" && typeof adharNumber != 'undefined')
+            if(adharNumber != "" && typeof adharNumber != 'undefined' && contractAddr != "" && typeof contractAddr != 'undefined')
             {   
                 if(global.dbConnection)
                 {
@@ -257,8 +240,8 @@ var ballotController = {
             }
             else
             {
-                console.log('ballotController : UserName or Password can not be null or empty');
-                return res.json({status: 'Error',  message : 'UserName or Password can not be null or empty'});
+                console.log('ballotController : Adhaar or Contract Address can not be null or empty');
+                return res.json({status: 'Error',  message : 'Adhaar or Contract Address can not be null or empty'});
             }
         }
         catch(err)
@@ -315,6 +298,8 @@ var ballotController = {
         console.log('ballotController : getPartyVoteCount method begins');
         try
         {
+            let body = req.body;
+            console.log(body);
             let contractAddr = body.contractaddr;
             console.log('ballotController : contractAddr ='+ contractAddr);
             let partyId =  body.partyid;
@@ -325,7 +310,7 @@ var ballotController = {
                     services.getPartyVoteCount(partyId,contractAddr)
                     .then(function(result){
                         console.log('ballotController : getPartyVoteCount Pass '); 
-                        return res.json({status: 'Success' , tran : result});  
+                        return res.json({status: 'Success' , votecount : result});  
                     }).catch(function(err){
                         console.log('ballotController : getPartyVoteCount Fails ');
                         return res.json({status: 'Error' , message : err});
@@ -336,7 +321,7 @@ var ballotController = {
                     return res.json({status: 'Error' , message : 'Database connection failed'});
                 }
             }else{
-                console.log('ballotController : UserName or Password can not be null or empty');
+                console.log('ballotController : contractAddr is null or empty');
                 return res.json({status: 'Error',  message : 'contractAddr is null or empty'});
             }
         }

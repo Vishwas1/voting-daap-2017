@@ -219,14 +219,15 @@
                 });
 
                 $('#addvoter').click(function(e){
-                    ////debugger;
+                    debugger;
 
                     if(currentBallotAddr != "" && currentBallotAddr != 'undefined'){
                         let adharNumbers = $('.adhaarList').val();
                         if(adharNumbers != 'undefined'){
                            let adharNumbersArr = adharNumbers.split(','); 
                            if(adharNumbersArr != 'undefined' && adharNumbersArr.length >0){
-                            adharNumbersArr.forEach(function(element) {
+                               let voterLength = adharNumbersArr.length;
+                            adharNumbersArr.forEach(function(element, i) {
                                 var data ={
                                 adharNumber: element,
                                 contractaddr : currentBallotAddr
@@ -239,9 +240,12 @@
                                 data: data,
                                 success: function (res) {
                                         if(res.status == 'Success' && res.message != "" && res.message !='undefined'){
-                                             $('.adhaarList').val('');
-                                             $('input').tagsinput('removeAll');
-                                             $('#modelWindow').modal('hide');
+                                            //debugger;
+                                            if(voterLength-1 == i){
+                                                $('.adhaarList').val('');
+                                                $('.label-info').remove()
+                                                $('#modelWindow').modal('hide');
+                                            }
                                         }else{
                                             console.log("Contract creation fails.....");
                                         }

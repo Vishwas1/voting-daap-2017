@@ -38,11 +38,7 @@ var userController = {
 						.then(function(result){
 							//If not then insert - Resolve promise
 							console.log('userController : Promise1 resolved: User does not exists in Database ');
-							services.createAccount(passwordReq);
-						}, function(err){
-							//Alerady exists in the db - Reject Promise - respond saying that user name already exists
-							console.log('userController : Promise1 rejected: User already exists in Database ');
-							return res.json({status: 'Error' , message : 'User already exists in Database'});
+							return services.createAccount(passwordReq);
 						})
 						.then(function(result){
 							publickey = result;	
@@ -55,25 +51,19 @@ var userController = {
 									});
 	
 								console.log('userController : publickey = '+  result);
-								services.insertIntoDb(userVar,model);
+								return services.insertIntoDb(userVar,model);
 								console.log('userController : Promise2 resolved: User created successfully into ethereum ');
 							}else{
 							}
-						}, function(e){
-							console.log('userController : Promise2 rejected: Could not create user into ethereum err = '+err);
-							return res.json({status: 'Error' , message : e.toString()});
 						})
 						.then(function(result){
 							// Successfully inserted into db - 3rd Promise resolved
 							console.log('userController : Promise3 resolved: User inserted into db');
 							return res.status(200).json({status : 'success',  message: 'User created successfully!'});								
-						},function(err){
-							// Successfully inserted into db - 3rd Promise rejected
-							console.log('userController : Promise3 rejected: Could not insert into Database err = '+err);
-							return res.json({status: 'Error' , message : 'Could not insert into Database'});
 						})
 						.catch(function(e){
 							console.log('userController :Error e.Message = '+ e.Message + ', e.Stack = '+ e.Stack);
+							return res.json({status: 'Error' , message : e});
 						});
 					}
 					else
@@ -101,18 +91,18 @@ var userController = {
 	},
 
 	login : function(req,res){
-		console.log('authController : authenticate method starts');
+		console.log('userController :: Login : authenticate method starts');
 		var adharnumberReq = "", passwordReq= "";
 		var body = req.body;
 		adharnumberReq =  body.adharnumber;
-		console.log('authController : adharnumberReq ='+ adharnumberReq);
+		console.log('userController :: Login : adharnumberReq ='+ adharnumberReq);
 		passwordReq = body.password;
-		console.log('authController : passwordReq ='+ passwordReq);
+		console.log('userController :: Login :  passwordReq ='+ passwordReq);
 		if(adharnumberReq != "" && passwordReq != "" && adharnumberReq != 'undefined' && passwordReq != 'undefined')
 		{
 			if(global.dbConnection)
 			{
-				console.log('authController : Database connection success');
+				console.log('userController :: Login : Database connection success');
 				if(typeof global.dbQueryObj != 'Undefined')
 				{
 					services.checkIfUserExists(adharnumberReq)
@@ -134,59 +124,56 @@ var userController = {
 								return res.json({status : 'Error', message : 'Authentication failed. Wrong password'});
 							}
 						}
-					},function(err){
-						return res.json({status : 'Error', message : err});
 					})
 					.catch(function(e){
-						console.log('authController :Error = '+ e);
+						console.log('userController :: Login : Error = '+ e);
+						return res.json({status : 'Error', message : e});				
 					});
 				}
 				else
 				{
-					console.log('authController : global.db is undefined');		
+					console.log('userController :: Login : global.db is undefined');		
 				}
 			}
 			else
 			{
-				console.log('authController : Database connection failed');
+				console.log('userController :: Login : Database connection failed');
 			}	
 		}
 		else
 		{
-			console.log('userController : UserName or Password can not be null or empty');
+			console.log('userController :: Login : UserName or Password can not be null or empty');
 			return res.json({status: 'Error',  message : 'UserName or Password can not be null or empty'});
 		}
-		console.log('authController : authenticate method ends');
+		console.log('userController :: Login :  authenticate method ends');
 	},
 
 	getBallotList : function(req,res){
-		console.log('getBallotList : authenticate method starts');
+		console.log('userController :: getBallotList : authenticate method starts');
 		var adharnumberReq = "";
 		var body = req.body;
 		adharnumberReq =  body.adharnumber;	
-		adharnumberReq = "5845";	
-		console.log('getBallotList : adharnumberReq ='+ adharnumberReq);
-		if(adharnumberReq != "" && adharnumberReq != 'undefined')
-		{
+		//adharnumberReq = "5845";	
+		console.log('userController :: getBallotList : adharnumberReq ='+ adharnumberReq);
+		//if(adharnumberReq != "" && adharnumberReq != 'undefined')
+		//{
 			if(global.dbConnection)
 			{
-				console.log('getBallotList : Database connection success');
+				console.log('userController :: getBallotList : Database connection success');
 				if(typeof global.dbQueryObj != 'Undefined')
 				{
-					console.log('getBallotList : Before calling getBallotList() ');
+					console.log('userController :: getBallotList : Before calling getBallotList() ');
 					services.getBallotList(adharnumberReq)
 					.then(function(contracts){
-
 						if(contracts!=null && typeof contracts != 'undefined' && contracts.length >0){
 							return res.json({status : 'Success', message : JSON.stringify(contracts)});
 						}else{
 							return res.json({status : 'Error', message : 'No Contacts found'});
 						}
-					},function(err){
-						return res.json({status : 'Error', message : err});
 					})
 					.catch(function(e){
-						console.log('getBallotList :Error = '+ e);
+						console.log('userController :: getBallotList :Error = '+ e);
+						return res.json({status : 'Error', message : e});
 					});
 				}
 				else
@@ -198,12 +185,12 @@ var userController = {
 			{
 				console.log('userController : Database connection failed');
 			}	
-		}
-		else
-		{
-			console.log('userController : UserName or Password can not be null or empty');
-			return res.json({status: 'Error',  message : 'UserName or Password can not be null or empty'});
-		}
+		// }
+		// else
+		// {
+		// 	console.log('userController : UserName or Password can not be null or empty');
+		// 	return res.json({status: 'Error',  message : 'UserName or Password can not be null or empty'});
+		// }
 		console.log('userController : getBallotList method ends');
 	},
 }
