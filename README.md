@@ -12,6 +12,7 @@
 - [System Architecture](#user-content-system-architecture)
 - [Contract Code](#user-content-contract)
 - [Contributing](#contributing)
+- [Mobile App](#user-content-mobile-app)
 - [Author](#author)
 
 <!-- tocstop -->
@@ -123,6 +124,13 @@ User open's Installs mobile app and use his Adhaar Id for login .
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
+
+## Mobile App
+ 
+ ```
+  https://github.com/vikramIde/votingapp-mobile
+  
+  ```
 
 
 ## Author
