@@ -1,7 +1,7 @@
 pragma solidity ^0.4.0;
 
 
-contract Ballot {
+contract Test {
     
     // Ballot owner
     address gblChairman;
@@ -19,18 +19,32 @@ contract Ballot {
         bytes32 name;
     }
     
-    // Parties
+    // Parties list
     uint[] gblpartyListArr;
     mapping(uint => Party) gblpartyList;
     
-    // Parties
-    mapping(string => Voter) gbl_voterList;
+    // Voter list
+    mapping(address => Voter) gbl_voterList;
     
     // All global variables
     string gblballotName;
-    uint gblvotingStartTime;
-    uint gblvotingEndTime;
+    uint gblvotingStartTime; //epoch format
+    uint gblvotingEndTime; //epoch format
  
+    // Modifier is owner
+    modifier isOwner(){
+        if(gblChairman == msg.sender)
+        _;
+    }
+    
+    // Modifer for expiry of this ballot
+    modifier isNotExpired(){
+        if(now >= gblvotingStartTime && now <= gblvotingEndTime)
+        _;
+        
+    }
+    
+    
     /*** 
      * Function Name : Ballot() 
      * Function Use : Constructor to initialize gbl variables
@@ -38,21 +52,19 @@ contract Ballot {
      *  1. _ballotName : Name of election. e.g General Elections, State assembly, Local body elections etc.
      *  2. _votingEndTime : Time at which this voting will end (in seconds)
      */
-    function Ballot(string _ballotName, 
+    function Test(string _ballotName, 
                     uint _votingEndTime,
                     bytes32[] _partyNames) public {
                         
         gblChairman = msg.sender;
         gblballotName = _ballotName;
         gblvotingEndTime = _votingEndTime;
-        
+        gblvotingStartTime = now;
         for(uint i=0; i < _partyNames.length; i++){
             gblpartyList[i].name = _partyNames[i];
             gblpartyList[i].voteCount = 0;
             gblpartyListArr.push(i);
         }
-        
-        //gblvotingStartTime = now;
     }
     
     /*** 
@@ -63,14 +75,7 @@ contract Ballot {
      *  2. _partyName : Party Name in string
      * Returns : True or False
      */
-    // function addParty(bytes32 _partyName) public returns(bool){
-    //     uint partyid = gblpartyListArr.length +1;
-    //     gblpartyList[partyid].name = _partyName;
-    //     gblpartyList[partyid].voteCount = 0;
-    //     gblpartyListArr.push(partyid);
-    //     return true;
-    // }
-    function addParty(bytes32 _partyName) public{
+    function addParty(bytes32 _partyName) public isOwner isNotExpired{
 
       uint partyid = gblpartyListArr.length +1;
         gblpartyList[partyid].name = _partyName;
@@ -87,10 +92,11 @@ contract Ballot {
      *  1. _adharNumber : Adhar number of a voter
      * Returns : True or False
      */
-    function addVoter(string _adharNumber) public{
-        gbl_voterList[_adharNumber].hasVoted = false;
-        gbl_voterList[_adharNumber].adharNumber = _adharNumber;
-        gbl_voterList[_adharNumber].isPresent = true;
+    function addVoter(string _adharNumber) public isOwner isNotExpired{
+        address memory voterAddr =  msg.sender;
+        gbl_voterList[voterAddr].hasVoted = false;
+        gbl_voterList[voterAddr].adharNumber = _adharNumber;
+        gbl_voterList[voterAddr].isPresent = true;
         //return true;
     }
     
@@ -102,8 +108,9 @@ contract Ballot {
      *  1. _adharNumber : Adhar number of a voter
      * Returns : True or False
      */
-    function validateBallotVoter(string _adharNumber) public constant returns(bool){     
-        if (gbl_voterList[_adharNumber].isPresent == true && gbl_voterList[_adharNumber].hasVoted == false) {        
+    function validateBallotVoter(string _adharNumber) public  constant isOwner isNotExpired returns(bool){    
+        address memory voterAddr =  msg.sender;
+        if (gbl_voterList[voterAddr].isPresent == true && gbl_voterList[voterAddr].hasVoted == false) {        
             return true;
         }else {
             return false;
@@ -129,15 +136,19 @@ contract Ballot {
      * Function Name : DoVoting() 
      * Function Use : Actual method to do voting
      * Parameters:
-     *  1. _partyId : Id of the party to which vote will be casted
+     *  1. _partyId : Id of the party to which vote will be caste to
      * Returns : True or False
      */
-    function doVoting(uint _partyId) public  returns(bool){
+    function doVoting(uint _partyId) public isNotExpired  returns(bool){
+        //check if voter is present in the  list
+        address memory voterAddr =  msg.sender;
         bool hasVoted = false;
-        uint voteCnt = 0;
-        voteCnt = gblpartyList[_partyId].voteCount;
-        gblpartyList[_partyId].voteCount = voteCnt + 1;
-        hasVoted = true;
+        if (gbl_voterList[voterAddr].isPresent == true && gbl_voterList[voterAddr].hasVoted == false){
+            uint voteCnt = 0;
+            voteCnt = gblpartyList[_partyId].voteCount;
+            gblpartyList[_partyId].voteCount = voteCnt + 1;
+            hasVoted = true;
+        }
         return hasVoted;
     }
     
