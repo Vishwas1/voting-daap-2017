@@ -92,8 +92,7 @@ contract Test {
      *  1. _adharNumber : Adhar number of a voter
      * Returns : True or False
      */
-    function addVoter(string _adharNumber) public isOwner isNotExpired{
-        address memory voterAddr =  msg.sender;
+    function addVoter(string _adharNumber, address voterAddr) public isOwner isNotExpired{
         gbl_voterList[voterAddr].hasVoted = false;
         gbl_voterList[voterAddr].adharNumber = _adharNumber;
         gbl_voterList[voterAddr].isPresent = true;
@@ -108,8 +107,7 @@ contract Test {
      *  1. _adharNumber : Adhar number of a voter
      * Returns : True or False
      */
-    function validateBallotVoter(string _adharNumber) public  constant isOwner isNotExpired returns(bool){    
-        address memory voterAddr =  msg.sender;
+    function validateBallotVoter(address voterAddr) public  constant isOwner isNotExpired returns(bool){    
         if (gbl_voterList[voterAddr].isPresent == true && gbl_voterList[voterAddr].hasVoted == false) {        
             return true;
         }else {
@@ -141,7 +139,7 @@ contract Test {
      */
     function doVoting(uint _partyId) public isNotExpired  returns(bool){
         //check if voter is present in the  list
-        address memory voterAddr =  msg.sender;
+        address voterAddr =  msg.sender;
         bool hasVoted = false;
         if (gbl_voterList[voterAddr].isPresent == true && gbl_voterList[voterAddr].hasVoted == false){
             uint voteCnt = 0;
