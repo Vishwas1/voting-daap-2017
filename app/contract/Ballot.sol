@@ -1,7 +1,7 @@
 pragma solidity ^0.4.0;
 
 
-contract Test {
+contract Ballot {
     
     // Ballot owner
     address gblChairman;
@@ -52,7 +52,7 @@ contract Test {
      *  1. _ballotName : Name of election. e.g General Elections, State assembly, Local body elections etc.
      *  2. _votingEndTime : Time at which this voting will end (in seconds)
      */
-    function Test(string _ballotName, 
+    function Ballot(string _ballotName, 
                     uint _votingEndTime,
                     bytes32[] _partyNames) public {
                         
