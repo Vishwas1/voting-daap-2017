@@ -12,6 +12,7 @@ var express = require('express'),
  
 //connecting to db
 mongoose.Promise = require('bluebird');
+/*
 console.log('server : Before calling  DbConnection method');
 dbConn.connection().then(function(res){
 	console.log('server : Connected to Db');
@@ -20,7 +21,7 @@ dbConn.connection().then(function(res){
 }).catch(function(err){
 	console.log('server :Error Connected to Db res ='+err);
 	global.dbConnection = false;
-});
+});*/
 
 //connecting to ethereum
 console.log('server : Before connecting to ethereum');
